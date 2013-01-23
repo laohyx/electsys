@@ -1,0 +1,37 @@
+{
+	"name": "Electsys++ 交大选课插件",
+	"version": "2.3.16",
+	"icons": { "128": "logo_new.png" },
+	"description": "上海交通大学选课网优化工具 - laohyx@163.com",
+    "homepage_url": "http://laohyx.com/",
+    "browser_action": {
+        "default_icon": "logo_new.png",
+        "default_title": "Electsys++",
+        "default_popup": "popup/popup.html"
+    },
+	"content_scripts": [
+		{
+            "matches": ["http://*/*"
+                     ],
+            "js": ["content_script/jquery-1.6.1.min.js",
+                 "content_script/lesson.js",
+				 "content_script/nhce.js",
+                 "content_script/optimize.js",
+                 "content_script/score.js",
+                 "content_script/login_page.js",
+                 "content_script/load.js"
+            ],
+            "run_at": "document_start",
+            "all_frames": true
+		}
+	],
+    "permissions": [
+        "http://*/*",
+        "notifications",
+		"management"
+    ],
+    "manifest_version": 2,
+    "web_accessible_resources": [
+        "manifest.json"
+    ]
+}
