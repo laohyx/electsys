@@ -1,6 +1,7 @@
 {
+"update_url":"http://clients2.google.com/service/update2/crx",
 	"name": "Electsys++ 交大选课插件",
-	"version": "2.3.16",
+	"version": "2.3.19",
 	"icons": { "128": "logo_new.png" },
 	"description": "上海交通大学选课网优化工具 - laohyx@163.com",
     "homepage_url": "http://laohyx.com/",
