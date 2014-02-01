@@ -95,6 +95,8 @@ function main()
 		optimize_gpa_query();
 		//首页显示成绩
 		//index_show_score_query();
+        //修业查看中计算总绩点
+        optimize_myEductionList();
 
 		//快速评教
 		fast_eval_index();
