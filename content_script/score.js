@@ -1,6 +1,3 @@
-opscore_year = "2012-2013";
-opscore_semester = "1";
-
 function optimize_gpa_query(){
     if(!inUrl("/edu/StudentScore/StudentScoreQuery.aspx"))
         return 0;
@@ -29,7 +26,7 @@ function optimize_gpa_query(){
         else
             jQuery(this).css("background-color","");
 	});
-	
+
 	jQuery("#select_all_lessons").click(function(){
 	if(jQuery(this).attr("all") == 1){
 		jQuery(this).text("全不选");

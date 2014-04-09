@@ -46,6 +46,30 @@ function inUrl(url){
 	else
 		return true;
 }
+
+opscore_year = "2012-2013";
+opscore_semester = "1";
+
+function getSemester(){
+    var day = new Date();
+    var y = day.getFullYear();
+    var m = day.getMonth() + 1;
+
+    if (m < 3){
+        opscore_year = (y-1) + "-" + y;
+        opscore_semester = "1";
+    }else if (m < 9){
+        opscore_year = (y-1) + "-" + y;
+        opscore_semester = "2";
+    }else{
+        opscore_year = y + "-" + (y+1);
+        opscore_semester = "1";
+    }
+    return;
+}
+
+getSemester();
+
 function main()
 {
 	jQuery.noConflict();
@@ -61,6 +85,7 @@ function main()
 		optimize_sdtleft();
 		//优化上栏
 		optimize_flattop();
+		optimize_flattop_content();
 		//优化选课（重点）  
 		optimize_elect();
 		
@@ -69,7 +94,9 @@ function main()
 		//绩点查询
 		optimize_gpa_query();
 		//首页显示成绩
-		index_show_score_query();
+		//index_show_score_query();
+        //修业查看中计算总绩点
+        optimize_myEductionList();
 
 		//快速评教
 		fast_eval_index();
@@ -95,6 +122,15 @@ main();
 /*
 
 	更新日志（从1.9.5才开始写）：
+    2.4 - 2014/1/27
+    tq5124, 更新日志改写在git中
+
+    2.3.19 - 2013/12/11
+        优化处理队列，加大间隔，增加错误重试
+
+    2.3.18 - 2013/12/11
+        选课网限制刷新频率，修改为手动点查
+
     2.3.14 - 2012/12/26
         修改“刷新信息”按钮的样式。
         计划下一版本开源啊！
