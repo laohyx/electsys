@@ -101,6 +101,8 @@ function optimize_elect()
 		type = "tongshi";
 	if(inUrl("/edu/student/elect/outSpeltyEP.aspx"))
 		type = "renxuan";
+	if(inUrl("/edu/student/elect/ShortSession.aspx"))
+		type = "xiaoxueqi";
 	
     radiogroup = jQuery("[name=myradiogroup]",document);
 	for(radio_index = 0; radio_index < radiogroup.length ; radio_index++){
@@ -111,9 +113,19 @@ function optimize_elect()
 		//console.log(radio_index + "~~" + lid);
 		radio = radiogroup[radio_index];
 		lesson_name = radio.parentElement.parentElement.parentElement.children[1].innerHTML.toString().trim();
+		
+		var type_name = "";
+		if(type == "xiaoxueqi") {
+			type_name = radio.parentElement.parentElement.parentElement.children[3].innerHTML.toString().trim();
+		}
+		
 		GE_table = ["other","人文学科","社会科学","自然科学与工程技术","数学或逻辑学"];
 		var GE_type = jQuery.inJSON(GE_list,lesson_name);
-		if(type == "renxuan" && GE_type.length > 0){
+		
+		if(type == "renxuan" && GE_type.length > 0){	// 普通选课
+			radio.parentElement.parentElement.parentElement.children[1].innerHTML = "<font class='chongdi_font' color=\"red\">" + lesson_name + "（冲抵通识：" + GE_table[GE_type[0]] + "）</font>";
+		}
+		else if(type == "xiaoxueqi" && type_name != "通识" && GE_type.length > 0){	// 小学期选课
 			radio.parentElement.parentElement.parentElement.children[1].innerHTML = "<font class='chongdi_font' color=\"red\">" + lesson_name + "（冲抵通识：" + GE_table[GE_type[0]] + "）</font>";
 		}
 		else{
