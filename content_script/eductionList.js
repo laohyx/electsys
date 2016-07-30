@@ -52,8 +52,8 @@ function gpa_colomn(table, title, colomn){
             gpa_global["units"] += unit;
             gpa_global["grades"] += gpa * unit;
         }
-        else {
-            gpa = gpa == "GPA" ? "GPA" : "未计入计算";
+        else if (gpa != "GPA") {
+            gpa = "未计入计算";
         }
         jQuery(this).append("<td>" + gpa + "</td>");
     });
@@ -118,5 +118,5 @@ function score2gpa(score){
             return 0.00;
         }
     }
-    else return score;
+    return score;
 }
