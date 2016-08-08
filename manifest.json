@@ -1,12 +1,19 @@
 {
-"update_url":"http://clients2.google.com/service/update2/crx",
+	"update_url":"http://clients2.google.com/service/update2/crx",
 	"name": "Electsys++ 交大选课插件",
+	"author": "laohyx",
 	"version": "2.4",
-	"icons": { "128": "logo_new.png" },
+	"icons": {
+		"48": "logo_new.png",
+		"128": "logo_new_128.png"
+	},
 	"description": "上海交通大学选课网优化工具",
     "homepage_url": "http://laohyx.com/",
     "browser_action": {
-        "default_icon": "logo_new.png",
+        "default_icon": {
+			"48": "logo_new.png",
+			"128": "logo_new_128.png"
+		},
         "default_title": "Electsys++",
         "default_popup": "popup/popup.html"
     },

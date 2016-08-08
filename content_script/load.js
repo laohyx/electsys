@@ -1,5 +1,10 @@
+// Support both Chrome & other browsers
+if (!browser && chrome) {
+	var browser = chrome;
+}
+
 jQuery.get(
-    chrome.extension.getURL("manifest.json"),
+    browser.extension.getURL("manifest.json"),
     function(data){
         localStorage['extension_version'] = data['version'];
     },
