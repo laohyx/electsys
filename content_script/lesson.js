@@ -64,6 +64,20 @@ function lesson_enable_check () {
 
 }
 
+//选课提醒页面
+function optimize_elect_warning()
+{
+    if(!inUrl("/edu/student/elect/electwarning.aspx")) {
+        return;
+    }
+
+    //选中“我已阅读”
+    jQuery("input[type=\"checkbox\"]").attr('checked', 'checked');
+
+    //为“继续”按钮设置焦点
+    jQuery("#btnContinue").focus();
+}
+
 function optimize_elect()
 {
 	    
@@ -74,9 +88,8 @@ function optimize_elect()
 	{
 		return 0;
 	}
-    // var black_list = ["http://electsys.sjtu.edu.cn/edu/student/elect/viewLessonTbl.aspx","http://electsys.sjtu.edu.cn/edu/student/elect/electResultOuter.aspx"]
-    
-    // 不需要应用优化的页面
+
+    //不需要应用优化的页面
     var black_list = [
         "/edu/student/elect/viewLessonTbl.aspx",
         "/edu/student/elect/electResultOuter.aspx",
