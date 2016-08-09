@@ -46,10 +46,19 @@ Array.prototype.distinct = function() {
 } 
 
 function inUrl(url){
-	if (document.URL.toLowerCase().indexOf(url.toLowerCase()) < 0)
-		return false;
-	else
-		return true;
+    // Iterate if url is an array
+	if(Array.isArray(url)) {
+		var len = url.length;
+		for (var i = 0; i < len; ++i) {
+            if (inUrl(url[i])) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+	return (document.URL.toLowerCase().indexOf(url.toLowerCase()) != -1);
 }
 
 opscore_year = "2012-2013";
@@ -93,6 +102,7 @@ function main()
 		optimize_flattop_content();
 		//优化选课（重点）  
 		optimize_elect();
+        optimize_elect_warning();
 		
 		//成绩查询
 		optimize_score_query();

@@ -74,10 +74,15 @@ function optimize_elect()
 	{
 		return 0;
 	}
-   // var black_list = ["http://electsys.sjtu.edu.cn/edu/student/elect/viewLessonTbl.aspx","http://electsys.sjtu.edu.cn/edu/student/elect/electResultOuter.aspx"]
-    if(inUrl("/edu/student/elect/viewLessonTbl.aspx") ||inUrl("/edu/student/elect/electResultOuter.aspx"))
-    {
-        //优化黑名单
+    // var black_list = ["http://electsys.sjtu.edu.cn/edu/student/elect/viewLessonTbl.aspx","http://electsys.sjtu.edu.cn/edu/student/elect/electResultOuter.aspx"]
+    
+    // 不需要应用优化的页面
+    var black_list = [
+        "/edu/student/elect/viewLessonTbl.aspx",
+        "/edu/student/elect/electResultOuter.aspx",
+        "/edu/student/elect/electwarning.aspx"
+    ];
+    if(inUrl(black_list)) {
         return 0;
     }
 
