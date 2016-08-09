@@ -13,6 +13,9 @@ let gpa_global = {
 function optimize_myEductionList(){
     if(!inUrl("/edu/GradAudit/MyGradList2013.aspx"))
         return 0;
+    // 修复照片失效
+    fix_educationlist_photo();
+
     // 初始化
     gpa_global["units"] = 0;
     gpa_global["grades"] = 0;
@@ -57,6 +60,9 @@ function gpa_colomn(table, title, colomn){
         }
         jQuery(this).append("<td>" + gpa + "</td>");
     });
+
+    //项目数量最小为 1
+    unit_all = Math.max(1, unit_all);
     const gpa_avg = gpa_all / unit_all;
     const score_avg = score_all / unit_all;
     jQuery(title).parent().append(`本部分课程总GPA为：${gpa_avg.toFixed(2)}，平均分为：${score_avg.toFixed(2)}`);
@@ -119,4 +125,22 @@ function score2gpa(score){
         }
     }
     return score;
+}
+
+function fix_educationlist_photo(){
+    jQuery('#imgPhoto').error(function () {
+        let img = jQuery(this);
+        let rawUrl = img.attr('src');
+        let matchResult = rawUrl.match(/xh=([0-9]+)/);
+
+        if (!matchResult) {
+            return;
+        }
+
+        let newUrl = `/edu/StuStatusMange/StuPhoto.aspx?xh=${matchResult[1]}`;
+        // 验证替换地址有效性后再替换图片
+        jQuery.get(newUrl, function () {
+            img.attr('src', newUrl);
+        });
+    });
 }
