@@ -34,7 +34,7 @@ function optimize_sdtleft()
     //分享到人人
 	var last_line= jQuery("td[colspan=2]").slice(1,2).parent();
 	var line_string = '<tr><td colspan="2"><img src="../imgs/leftline.gif" width="122" height="1"></td></tr>';
-	var share_link = '<tr onmouseover="sbar(this)" onmouseout="cbar(this)"><td><img src="../imgs/icon.menu.gif" width="25" height="15"></td><td class="menu"><div style="position:relative;width:110px;"><a href="http://electsys.net/" target="_blank">我爱选课</a></div></td></tr>';
+	var share_link = '<tr onmouseover="sbar(this)" onmouseout="cbar(this)"><td><img src="../imgs/icon.menu.gif" width="25" height="15"></td><td class="menu"><div style="position:relative;width:110px;"><a href="https://github.com/laohyx/electsys/" target="_blank">我爱选课</a></div></td></tr>';
 	last_line.after(jQuery(share_link + line_string));
 	
     
