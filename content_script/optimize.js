@@ -61,29 +61,15 @@ function optimize_sdtleft()
 	*/
 }
 
-// CMCSA
 function optimize_flattop_content(){
-
 	if (!inUrl("/edu/include/flattop.htm"))
 		return 0;
-	if (localStorage["flattop_slide_cmcsa"] === undefined)
-		localStorage["flattop_slide_cmcsa"] = 1;
-	if(localStorage["flattop_slide_cmcsa"] == 1){
-		var html = '<html>\n\t<head>\n\t\t<title>\u4e0a\u6d77\u4ea4\u901a\u5927\u5b66\u6559\u5b66\u4fe1\u606f\u670d\u52a1\u7f51</title>\n\t\t<meta http-equiv="Content-Type" content="text/html; charset=gb2312">\n\t\t<link href="inner.css" rel="stylesheet" type="text/css">\n\t\t<script type="text/javascript" language="javascript">\n\t\t    function CloseWindow() {\n\t\t        window.open("CloseWindows.aspx", "_self", "height=0, width=0");\n\t\t    }\n\t\t</script><style type="text/css"></style>\n\t</head>\n\t<body marginwidth="0" marginheight="0">\n\t\t<table width="100%" border="0" cellspacing="0" cellpadding="0">\n\t\t\t<tbody><tr>\n\t\t\t\t<td bgcolor="#203139"><table width="860" border="0" cellspacing="0" cellpadding="0">\n\t\t\t\t\t\t<tbody><tr>\n\t\t\t\t\t\t\t<td><img src="../imgs/in.col1.jpg" width="650" height="28"></td>\n\t\t\t\t\t\t\t<td width="100%" align="middle" bgcolor="#ffae00"><img src="../imgs/iconhome.gif" width="11" height="10">\n\t\t\t\t\t\t\t\t<a href="../index.aspx" target="_top" class="white">\u8fd4\u56de\u9996\u9875</a>&nbsp;&nbsp;&nbsp;<img src="../imgs/logout.gif" width="11" height="9">\n\t\t\t\t\t\t\t\t<a href="../logOut.aspx" target="_top" class="white">\u6ce8\u9500\u672c\u6b21\u767b\u5f55</a></td>\n\t\t\t\t\t\t\t<td><img src="../imgs/col1_2.jpg" width="13" height="25"></td>\n\t\t\t\t\t\t</tr>\n\t\t\t\t\t</tbody></table>\n\t\t\t\t</td>\n\t\t\t</tr>\n\t\t\t<tr>\n\t\t\t\t<td background="http://cmcsa.org/upload/in.topbg.jpg"><table width="760" border="0" cellspacing="0" cellpadding="0">\n\t\t\t\t\t\t<tbody><tr>\n\t\t\t\t\t\t\t<td><img src="../imgs/in.col2-1.jpg" width="120" height="85"></td>\n\t\t\t\t\t\t\t<td><img src="../imgs/in.col2-2.jpg" width="663" height="85"></td>\n\t\t\t\t\t\t\t<td><img src="../imgs/in.col2-3.jpg" width="164" height="85"></td>\n\t\t\t\t\t\t</tr>\n                  </tbody></table><img src="http://cmcsa.org/upload/qrcode.png" style="position: absolute;top: 0px;left: 811px;width: auto;height: 113px;">\n                  </td></tr>\n\t\t\t<tr>\n\t\t\t\t<td><table width="100%" border="0" cellspacing="0" cellpadding="0">\n\t\t\t\t\t\t<tbody><tr>\n\t\t\t\t\t\t\t<td width="15%" height="9" background="../imgs/col3orangebg.gif"></td>\n\t\t\t\t\t\t\t<td width="85%" height="9" background="../imgs/col3bluebg.gif"></td>\n\t\t\t\t\t\t</tr>\n\t\t\t\t\t</tbody></table>\n\t\t\t\t</td>\n\t\t\t</tr>\n\t\t\t<tr>\n\t\t\t\t<td><img src="../imgs/lefttop1.jpg" width="130" height="6"></td>\n\t\t\t</tr>\n\t\t</tbody></table>\n\t\n\n</body></html>';
-		jQuery('html').html(html);
-	}
 }
 
 function optimize_flattop(){
 	if (!inUrl("/edu/student/sdtMain.aspx"))
 		return 0;
 	var div_pos = 80;
-	if (localStorage["flattop_slide_cmcsa"] === undefined)
-		localStorage["flattop_slide_cmcsa"] = 1;
-	if(localStorage["flattop_slide_cmcsa"] == 1){  
-		jQuery("frameset").slice(0,1).attr("rows", "120,*");
-		div_pos += 15;
-	}
 	
     var optimize_flattop_fixed_div = jQuery('<div id="optimize_flattop_fixed_div" style="color:white;font-size:12px;margin:0px;width:100px;height:25px;z-index: 999;position:fixed;line-height:25px;top:'+String(div_pos)+'px;right:0px;text-align:center;background-color:#ffae00;cursor:pointer;">隐藏/显示推荐</div>');
     jQuery("html").append(optimize_flattop_fixed_div);
@@ -95,26 +81,13 @@ function optimize_flattop(){
     });
     
 	jQuery("#optimize_flattop_fixed_div").click(function(){
-        localStorage["flattop_slide_cmcsa"] *= -1;
         window.location.reload();
     });
 }
 
 function flattopToggle(){
     theta = 0;
-    if(localStorage["flattop_slide_cmcsa"] == 1)
-    {
-		jQuery("frameset").slice(0,1).attr("rows", "120,*");
-		var html = '<html>\n\t<head>\n\t\t<title>\u4e0a\u6d77\u4ea4\u901a\u5927\u5b66\u6559\u5b66\u4fe1\u606f\u670d\u52a1\u7f51</title>\n\t\t<meta http-equiv="Content-Type" content="text/html; charset=gb2312">\n\t\t<link href="inner.css" rel="stylesheet" type="text/css">\n\t\t<script type="text/javascript" language="javascript">\n\t\t    function CloseWindow() {\n\t\t        window.open("CloseWindows.aspx", "_self", "height=0, width=0");\n\t\t    }\n\t\t</script><style type="text/css"></style>\n\t</head>\n\t<body marginwidth="0" marginheight="0">\n\t\t<table width="100%" border="0" cellspacing="0" cellpadding="0">\n\t\t\t<tbody><tr>\n\t\t\t\t<td bgcolor="#203139"><table width="860" border="0" cellspacing="0" cellpadding="0">\n\t\t\t\t\t\t<tbody><tr>\n\t\t\t\t\t\t\t<td><img src="../imgs/in.col1.jpg" width="650" height="28"></td>\n\t\t\t\t\t\t\t<td width="100%" align="middle" bgcolor="#ffae00"><img src="../imgs/iconhome.gif" width="11" height="10">\n\t\t\t\t\t\t\t\t<a href="../index.aspx" target="_top" class="white">\u8fd4\u56de\u9996\u9875</a>&nbsp;&nbsp;&nbsp;<img src="../imgs/logout.gif" width="11" height="9">\n\t\t\t\t\t\t\t\t<a href="../logOut.aspx" target="_top" class="white">\u6ce8\u9500\u672c\u6b21\u767b\u5f55</a></td>\n\t\t\t\t\t\t\t<td><img src="../imgs/col1_2.jpg" width="13" height="25"></td>\n\t\t\t\t\t\t</tr>\n\t\t\t\t\t</tbody></table>\n\t\t\t\t</td>\n\t\t\t</tr>\n\t\t\t<tr>\n\t\t\t\t<td background="http://cmcsa.org/upload/in.topbg.jpg"><table width="760" border="0" cellspacing="0" cellpadding="0">\n\t\t\t\t\t\t<tbody><tr>\n\t\t\t\t\t\t\t<td><img src="../imgs/in.col2-1.jpg" width="120" height="85"></td>\n\t\t\t\t\t\t\t<td><img src="../imgs/in.col2-2.jpg" width="663" height="85"></td>\n\t\t\t\t\t\t\t<td><img src="../imgs/in.col2-3.jpg" width="164" height="85"></td>\n\t\t\t\t\t\t</tr>\n                  </tbody></table><img src="http://cmcsa.org/upload/qrcode.png" style="position: absolute;top: 0px;left: 811px;width: auto;height: 113px;">\n                  </td></tr>\n\t\t\t<tr>\n\t\t\t\t<td><table width="100%" border="0" cellspacing="0" cellpadding="0">\n\t\t\t\t\t\t<tbody><tr>\n\t\t\t\t\t\t\t<td width="15%" height="9" background="../imgs/col3orangebg.gif"></td>\n\t\t\t\t\t\t\t<td width="85%" height="9" background="../imgs/col3bluebg.gif"></td>\n\t\t\t\t\t\t</tr>\n\t\t\t\t\t</tbody></table>\n\t\t\t\t</td>\n\t\t\t</tr>\n\t\t\t<tr>\n\t\t\t\t<td><img src="../imgs/lefttop1.jpg" width="130" height="6"></td>\n\t\t\t</tr>\n\t\t</tbody></table>\n\t\n\n</body></html>';
-		jQuery('html').html(html);
-    }else{
-        jQuery("frameset").slice(0,1).attr("rows", "105,*");
-		var html = '\n<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"\n"http://www.w3.org/TR/html4/loose.dtd">\n<html>\n\t<head>\n\t\t<title>\u4e0a\u6d77\u4ea4\u901a\u5927\u5b66\u6559\u5b66\u4fe1\u606f\u670d\u52a1\u7f51</title>\n\t\t<meta http-equiv="Content-Type" content="text/html; charset=gb2312">\n\t\t<link href="inner.css" rel="stylesheet" type="text/css">\n\t\t<script type="text/javascript" language="javascript">\n\t\t    function CloseWindow() {\n\t\t        window.open("CloseWindows.aspx", "_self", "height=0, width=0");\n\t\t    }\n\t\t</script>\n\t</head>\n\t<body >\n\t\t<table width="100%" border="0" cellspacing="0" cellpadding="0">\n\t\t\t<tr>\n\t\t\t\t<td bgcolor="#203139"><table width="760" border="0" cellspacing="0" cellpadding="0">\n\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t<td><img src="../imgs/in.col1.jpg" width="513" height="25"></td>\n\t\t\t\t\t\t\t<td width="100%" align="middle" bgcolor="#ffae00"><img src="../imgs/iconhome.gif" width="11"height="10">\n\t\t\t\t\t\t\t\t<a href="../index.aspx" target="_top" class="white">\u8fd4\u56de\u9996\u9875</a>&nbsp;&nbsp;&nbsp;<img src="../imgs/logout.gif" width="11" height="9">\n\t\t\t\t\t\t\t\t<a href="../logOut.aspx" target="_top" class="white">\u6ce8\u9500\u672c\u6b21\u767b\u5f55</a></td>\n\t\t\t\t\t\t\t<td><img src="../imgs/col1_2.jpg" width="13" height="25"></td>\n\t\t\t\t\t\t</tr>\n\t\t\t\t\t</table>\n\t\t\t\t</td>\n\t\t\t</tr>\n\t\t\t<tr>\n\t\t\t\t<td background="../imgs/in.topbg.jpg"><table width="760" border="0" cellspacing="0" cellpadding="0">\n\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t<td><img src="../imgs/in.col2-1.jpg" width="96" height="65"></td>\n\t\t\t\t\t\t\t<td><img src="../imgs/in.col2-2.jpg" width="520" height="65"></td>\n\t\t\t\t\t\t\t<td><img src="../imgs/in.col2-3.jpg" width="144" height="65"></td>\n\t\t\t\t\t\t</tr>\n\t\t\t\t\t</table>\n\t\t\t\t</td>\n\t\t\t</tr>\n\t\t\t<tr>\n\t\t\t\t<td><table width="100%" border="0" cellspacing="0" cellpadding="0">\n\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t<td width="15%" height="9" background="../imgs/col3orangebg.gif"></td>\n\t\t\t\t\t\t\t<td width="85%" height="9" background="../imgs/col3bluebg.gif"></td>\n\t\t\t\t\t\t</tr>\n\t\t\t\t\t</table>\n\t\t\t\t</td>\n\t\t\t</tr>\n\t\t\t<tr>\n\t\t\t\t<td><img src="../imgs/lefttop1.jpg" width="130" height="6"></td>\n\t\t\t</tr>\n\t\t</table>\n\t</body>\n</html>\n\n';
-		jQuery('html').html(html);
-    }
-
 }
-// END OF CMCSA
 /*
 function optimize_flattop(){
 	if (!inUrl("/edu/student/sdtMain.aspx"))
