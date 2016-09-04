@@ -21,7 +21,7 @@
         {
             "matches": ["*://*.sjtu.edu.cn/*"],
             "js": ["content_script/jquery-3.1.0.js",
-                 "content_script/jquery-migrate-1.4.1.js",
+                 "content_script/jquery-migrate-3.0.0.js",
                  "content_script/lesson.js",
                  "content_script/nhce.js",
                  "content_script/optimize.js",
