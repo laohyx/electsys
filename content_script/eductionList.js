@@ -54,6 +54,9 @@ function gpa_colomn(table, title, colomn){
             gpa_global["scores"] += fixed_score * unit;
             gpa_global["units"] += unit;
             gpa_global["grades"] += gpa * unit;
+
+            // Convert gpa to string
+            gpa = gpa.toFixed(1);
         }
         else if (gpa != "GPA") {
             gpa = "未计入计算";
