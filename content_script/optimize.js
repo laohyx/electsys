@@ -191,8 +191,8 @@ function fast_eval_process () {
 }
 
 function fast_eval_interlock(eval_num){
-	console.log(jQuery("#fast_eval_interlock").attr("checked"));
-	if(jQuery("#fast_eval_interlock").attr("checked") != "checked")
+	console.log(jQuery("#fast_eval_interlock").prop("checked"));
+	if(!jQuery("#fast_eval_interlock").prop("checked"))
 		return;
 	var eval1 = eval_num;
 	var eval2 = Math.round(eval1 / 10);
@@ -296,8 +296,8 @@ function fast_eval_midterm_process () {
 
 
 function fast_eval_midterm_interlock(eval_num){
-	console.log(jQuery("#fast_eval_interlock").attr("checked"));
-	if(jQuery("#fast_eval_interlock").attr("checked") != "checked")
+	console.log(jQuery("#fast_eval_interlock").prop("checked"));
+	if(!jQuery("#fast_eval_interlock").prop("checked"))
 		return;
 	var eval1 = eval_num;
 	var eval2 = Math.round(eval1);

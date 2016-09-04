@@ -128,7 +128,7 @@ function score2gpa(score){
 }
 
 function fix_educationlist_photo(){
-    jQuery('#imgPhoto').error(function () {
+    jQuery('#imgPhoto').on('error', function () {
         let img = jQuery(this);
         let rawUrl = img.attr('src');
         let matchResult = rawUrl.match(/xh=([0-9]+)/);

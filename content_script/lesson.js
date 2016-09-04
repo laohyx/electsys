@@ -72,7 +72,7 @@ function optimize_elect_warning()
     }
 
     //选中“我已阅读”
-    jQuery("input[type=\"checkbox\"]").attr('checked', 'checked');
+    jQuery("input[type=\"checkbox\"]").prop('checked', true);
 
     //为“继续”按钮设置焦点
     jQuery("#btnContinue").focus();

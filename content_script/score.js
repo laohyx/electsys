@@ -2,11 +2,11 @@ function optimize_gpa_query(){
     if(!inUrl("/edu/StudentScore/StudentScoreQuery.aspx"))
         return 0;
 	if(jQuery("#ddlXN").val() == "2010-2011" && jQuery("#ddlXQ").val() == "1" && !has_result_table()){
-		jQuery("#ddlXQ").find("[selected=selected]").removeAttr("selected");
-		jQuery("#ddlXN").find("[selected=selected]").removeAttr("selected");
+		jQuery("#ddlXQ").find("[selected=selected]").prop("selected", false);
+		jQuery("#ddlXN").find("[selected=selected]").prop("selected", false);
 
-		jQuery("#ddlXN").find("option[value="+opscore_year+"]").attr("selected","selected");
-		jQuery("#ddlXQ").find("option[value="+opscore_semester+"]").attr("selected","selected");
+		jQuery("#ddlXN").find("option[value="+opscore_year+"]").prop("selected", true);
+		jQuery("#ddlXQ").find("option[value="+opscore_semester+"]").prop("selected", true);
 
 	}
     if(!has_result_table())
@@ -99,11 +99,11 @@ function optimize_score_query(){
 	
 	//把1学期改成2.。。
 	if(jQuery("#ddlXN").val() == "2010-2011" && jQuery("#ddlXQ").val() == "1" && !has_result_table()){
-		jQuery("#ddlXQ").find("[selected=selected]").removeAttr("selected");
-		jQuery("#ddlXN").find("[selected=selected]").removeAttr("selected");
+		jQuery("#ddlXQ").find("[selected=selected]").prop("selected", false);
+		jQuery("#ddlXN").find("[selected=selected]").prop("selected", false);
 
-		jQuery("#ddlXN").find("option[value="+opscore_year+"]").attr("selected","selected");
-		jQuery("#ddlXQ").find("option[value="+opscore_semester+"]").attr("selected","selected");
+		jQuery("#ddlXN").find("option[value="+opscore_year+"]").prop("selected", true);
+		jQuery("#ddlXQ").find("option[value="+opscore_semester+"]").prop("selected", true);
 
 	}
 
