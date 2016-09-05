@@ -84,7 +84,7 @@ function core_course_append_gpa() {
 
         // 表头
         if (row_info.is_head) {
-            core_course_append_column(row, 'GPA');
+            row.append('<td>GPA</td>');
             row.attr('data-electsys-id', row_info.id);
             return true;
         }
@@ -92,7 +92,7 @@ function core_course_append_gpa() {
         // 成绩行
         if (row_info.id > 0) {
             course_list[row_info.id] = row_info;
-            core_course_append_column(row, row_info.gpa.toFixed(1));
+            row.append('<td>' + row_info.gpa.toFixed(1) + '</td>');
             row.attr('data-electsys-id', row_info.id);
             return true;
         }
@@ -107,15 +107,6 @@ function core_course_append_gpa() {
 function core_course_get_table() {
     let table = jQuery('table#dgSet');
     return table.size() > 0 ? table : null;
-}
-
-/**
- * 追加表头
- * @param row 需要追加的行
- * @param content 需要追加的单元格内容
- */
-function core_course_append_column(row, content) {
-    row.append('<td>' + content + '</td>');
 }
 
 /**
@@ -192,9 +183,6 @@ function core_course_enable_select(course_list) {
     jQuery('#electsys-select-all').click(function () {
         let select_value = jQuery(this).text() == '全选';
         core_course_select_all(course_list, select_value);
-
-        // 更新按钮文字
-        jQuery(this).text(select_value ? '全不选' : '全选');
         return false;
     });
 }
@@ -234,9 +222,6 @@ function core_course_select_all(course_list, select_value) {
         .each(function () {
             let row = jQuery(this);
             let row_id = row.attr('data-electsys-id') - 0;
-            if (row_id <= 0) {
-                return;
-            }
 
             course_list[row_id].is_selected = select_value;
             core_course_update_color(row, select_value);
@@ -270,9 +255,11 @@ function core_course_update_score(course_list) {
     let total_credit = 0;
     let total_gpa = 0;
     let total_score = 0;
+    let selected_count = 0;
 
     course_list.forEach(function (course) {
         if (course.is_selected) {
+            ++selected_count;
             total_credit += course.credit;
             total_gpa += course.gpa * course.credit;
             total_score += course.score * course.credit;
@@ -288,4 +275,7 @@ function core_course_update_score(course_list) {
 
     jQuery('#electsys-gpa').text(average_gpa.toFixed(2));
     jQuery('#electsys-score').text(average_score.toFixed(2));
+
+    // 更新按钮文字
+    jQuery('#electsys-select-all').text(selected_count > 0 ? '全不选' : '全选');
 }
