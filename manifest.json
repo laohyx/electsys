@@ -26,8 +26,9 @@
                  "content_script/optimize.js",
                  "content_script/score.js",
                  "content_script/login_page.js",
-                 "content_script/load.js",
-                 "content_script/eductionList.js"
+                 "content_script/eductionList.js",
+                 "content_script/core_course.js",
+                 "content_script/load.js"
             ],
             "run_at": "document_start",
             "all_frames": true

@@ -113,6 +113,9 @@ function main()
         //修业查看中计算总绩点
         optimize_myEductionList();
 
+		//核心课程追加绩点
+		optimize_core_course();
+
 		//快速评教
 		fast_eval_index();
 		fast_eval_process();
