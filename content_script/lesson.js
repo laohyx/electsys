@@ -1,30 +1,28 @@
 
+const INTERVAL_DEFAULT = 1600;
+const INTERVAL_STEP = 200;
+
 function post(url,data,lid)
 {	
 /*	if (localStorage["lesson_enable"] == undefined || localStorage["lesson_enable"] == 0) {
 		return 0;
 	};
 */
-    setTimeout(function(){
-		jQuery.ajax({
-		  type: 'POST',
-		  url: url,
-		  data: data,
-		  async:false,
-		  success: function(data){
-					processArrangement(data,lid);
-
-			},
-			error: function(data){
-				console.log("error");
-
-			},
-		  dataType: "html"
-		});}
-	,0);
+	jQuery.ajax({
+		type: 'POST',
+		url: url,
+		data: data,
+		async: true,
+		success: function (data) {
+			processArrangement(data, lid);
+		},
+		error: function (data) {
+			console.log("error", data);
+		},
+		dataType: "html"
+	});
 	
 	return 0;
-
 }
 
 	
@@ -157,7 +155,7 @@ function optimize_elect()
     jQuery("[name=myradiogroup]",document).slice(0,1).parent().parent().parent().prev().children().slice(0,1).css({"background-color":"#83A9C9", "background-image":"none"});
     jQuery("[name=myradiogroup]",document).slice(0,1).parent().parent().parent().prev().children().slice(0,1).html("<a href='#' class='refresh_list' style='font-weight:400;'>【刷新信息】</a>");
 
-	document.processInterval = 600;
+	document.processInterval = INTERVAL_DEFAULT;
     init_query_list();
 
     jQuery('.refresh_list').click(function(){
@@ -308,13 +306,13 @@ function processArrangement(html,lid)
 		// 其他情况（比如提示查询频繁）
 		// 把该lid加回去
 		document.lids[document.lids.length] = [lid, type];
-		document.processInterval += 200;
+		document.processInterval += INTERVAL_STEP;
+		console.log(document.processInterval);
 		clearAllInterval();
 		setInterval("processLidQueue();", document.processInterval);
 
 		return;
 	}
-    
 
 
 // 开始处理html，并绘制至课表中
@@ -454,6 +452,7 @@ function processArrangement(html,lid)
 		}
 			
 	})
+
 	return 0;
 }
 
