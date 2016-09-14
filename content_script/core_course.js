@@ -84,7 +84,7 @@ function core_course_append_gpa() {
 
         // 表头
         if (row_info.is_head) {
-            row.append('<td>GPA</td>');
+            row.append('<td>绩点</td>');
             row.attr('data-electsys-id', row_info.id);
             return true;
         }
