@@ -47,13 +47,16 @@ function gpa_colomn(table, title, colomn){
         const comment = jQuery(this).find("td:nth-child(" + colomn[2] +")").html();
         const fixed_score = score_fix(score);
         let gpa = score2gpa(fixed_score);
-        if (typeof(gpa) == "number" && comment != "无需关注" && comment != "尚未修读" && gpa >= 0){
+        if (typeof(gpa) == "number" && comment != "无需关注" && comment != "尚未修读" && comment != "正在修读" && gpa >= 0){
             gpa_all += gpa * unit;
             unit_all += unit;
             score_all += fixed_score * unit;
             gpa_global["scores"] += fixed_score * unit;
             gpa_global["units"] += unit;
             gpa_global["grades"] += gpa * unit;
+
+            // Convert gpa to string
+            gpa = gpa.toFixed(1);
         }
         else if (gpa != "GPA") {
             gpa = "未计入计算";
