@@ -2,7 +2,7 @@
     "update_url":"http://clients2.google.com/service/update2/crx",
     "name": "Electsys++ 交大选课插件",
     "author": "laohyx",
-    "version": "2.4.1",
+    "version": "2.4.2",
     "icons": {
         "48": "logo_new.png",
         "128": "logo_new_128.png"
