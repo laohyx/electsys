@@ -135,11 +135,11 @@ function optimize_elect()
             var me = this;
 
             // 有缓存的情况下直接加载缓存页面
-            console.log(g_arrange_cache, lid);
+            //console.log(g_arrange_cache, lid);
             if (g_arrange_cache.hasOwnProperty(lid)) {
                 var cache = g_arrange_cache[lid];
                 var now = new Date().getTime();
-                console.log(cache.expire > now);
+                //console.log(cache.expire > now);
                 if (cache.expire > now) {
                     // 更改 pushstate
                     window.history.replaceState({lid: lid}, 'speltyGeneralCourse', url);
@@ -165,7 +165,7 @@ function optimize_elect()
                     // 处理新页面
                     var body = cache.html
                         .replace(/\.\.\//g, '../../')
-                        .replace(/(\w+).aspx/g, '../../lesson/$1.aspx');
+                        .replace(/(viewLessonArrange).aspx/g, '../../lesson/$1.aspx');
                     var bodyStart = body.indexOf('<form name="viewLesson"');
                     var bodyEnd = body.lastIndexOf('</form>');
                     body = body.substring(bodyStart, bodyEnd + '</form>'.length);
