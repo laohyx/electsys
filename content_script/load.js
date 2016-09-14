@@ -132,7 +132,9 @@ function main()
 
 
 
-main(); 
+jQuery(document).ready(function () {
+	main();
+});
 
 
 

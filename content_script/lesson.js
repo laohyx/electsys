@@ -8,15 +8,18 @@ function post(url,data,lid)
 		return 0;
 	};
 */
+	g_ajax_sending = true;
 	jQuery.ajax({
 		type: 'POST',
 		url: url,
 		data: data,
 		async: true,
-		success: function (data) {
-			processArrangement(data, lid);
+		success: function (data, res) {
+			g_ajax_sending = false;
+			processArrangement(data, lid, url);
 		},
 		error: function (data) {
+			g_ajax_sending = false;
 			console.log("error", data);
 		},
 		dataType: "html"
@@ -34,6 +37,10 @@ border_color = [];
 border_color[0] = "blue";
 border_color[1] = "red";
 
+//查询缓存
+var g_arrange_cache = {};
+var g_last_query_success = new Date().getTime() - INTERVAL_DEFAULT;
+var g_ajax_sending = false;
 
 function lesson_enable_check () {
 	
@@ -108,6 +115,7 @@ function optimize_elect()
 	//插入小课表
 	prepend_smalltable();
 	title[0].innerHTML += " Electsys++  " + localStorage['extension_version'];
+	jQuery('body').append('<div id="electsys_view_lesson"></div>');
 	
 	type = "tongshi";
 	
@@ -122,8 +130,58 @@ function optimize_elect()
 	
     radiogroup = jQuery("[name=myradiogroup]",document);
 	for(radio_index = 0; radio_index < radiogroup.length ; radio_index++){
-		jQuery(radiogroup[radio_index]).click(function(){
-			setTimeout(function(){jQuery("input[value=课程安排]").trigger("click");}, 400);
+		jQuery(radiogroup[radio_index]).click(function () {
+			var lid = this.value;
+			var me = this;
+
+			// 有缓存的情况下直接加载缓存页面
+			console.log(g_arrange_cache, lid);
+			if (g_arrange_cache.hasOwnProperty(lid)) {
+				var cache = g_arrange_cache[lid];
+				var now = new Date().getTime();
+				console.log(cache.expire > now);
+				if (cache.expire > now) {
+					// 更改 pushstate
+					window.history.replaceState({lid: lid}, 'speltyGeneralCourse', url);
+					window.history.pushState(null, 'viewLesson', url);
+
+					// 页面回退
+					window.onpopstate = function(event) {
+						if (event.state.lid) {
+							jQuery('#Table1').show();
+							jQuery('#st_fixed_div').show();
+							jQuery('#electsys_view_lesson').html('');
+
+							// 清除原先加的提示颜色
+							clearDraw_lid(lid);
+							jQuery(me).parent().parent().parent()
+								.attr('style', '')
+								.removeAttr('clicked');
+							// 取消选中
+							jQuery(me).prop('checked', false);
+						}
+					};
+
+					// 处理新页面
+					var body = cache.html
+						.replace(/\.\.\//g, '../../')
+						.replace(/(\w+).aspx/g, '../../lesson/$1.aspx');
+					var bodyStart = body.indexOf('<form name="viewLesson"');
+					var bodyEnd = body.lastIndexOf('</form>');
+					body = body.substring(bodyStart, bodyEnd + '</form>'.length);
+
+					// 加载新页面
+					jQuery('#electsys_view_lesson').html(body);
+					jQuery('#Table1').hide();
+					jQuery('#st_fixed_div').hide();
+
+					return;
+				}
+			}
+
+			setTimeout(function () {
+				jQuery("input[value=课程安排]").trigger("click"); 
+			}, 400);
 		})
 		var lid = radiogroup[radio_index].value;
 		//console.log(radio_index + "~~" + lid);
@@ -189,7 +247,17 @@ function init_query_list(){
 		var lid = jQuery(this).attr('lid');
 		document.lids[document.lids.length] = [lid,type];
 		clearAllInterval();
-		setInterval("processLidQueue();", document.processInterval);
+		var now = new Date().getTime();
+		var diff = g_last_query_success + document.processInterval - now;
+		if (g_ajax_sending) {
+			diff += document.processInterval;
+		}
+
+		// 如果没有在限制频率内，则直接查询，加快速度
+		setTimeout(function () {
+			processLidQueue();	// POST first
+			setInterval("processLidQueue();", document.processInterval);
+		}, Math.max(0, diff) + 100);
 	});
 }
 
@@ -282,7 +350,7 @@ function getArrangement(lid,type)
 
 }
 
-function processArrangement(html,lid)
+function processArrangement(html, lid, url)
 {
 	//判断是否有错误提示
 	var error_pattern = new RegExp("<span id=\"lblMessage\" .*?>(.*?)</span>");
@@ -293,6 +361,9 @@ function processArrangement(html,lid)
 		console.log(error_message);
 
 		if(error_message.indexOf("不能继续增加通识课") > -1){
+			// 记录接受到响应的时间
+			g_last_query_success = new Date().getTime();
+
 			error_message = "通识达上限";
 			document.lids = [];
 			//在列表上添加是否空的提示
@@ -314,6 +385,14 @@ function processArrangement(html,lid)
 		return;
 	}
 
+	// 记录接受到响应的时间
+	g_last_query_success = new Date().getTime();
+	// 缓存查询结果
+	g_arrange_cache[lid] = {
+		url: url,
+		html: html,
+		expire: g_last_query_success + document.processInterval
+	};
 
 // 开始处理html，并绘制至课表中
 // 这段代码是我大二写的，已经是2011年的事了。。。相信它会运行很久
