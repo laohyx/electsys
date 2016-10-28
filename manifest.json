@@ -37,6 +37,7 @@
                 "content_script/page/login.js",
                 "content_script/page/eduction_list.js",
                 "content_script/page/core_course.js",
+                "content_script/page/news.js",
 
                 "content_script/core/load.js"
             ],
