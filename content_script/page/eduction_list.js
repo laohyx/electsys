@@ -1,3 +1,9 @@
+/**
+ * Electsys++ Project
+ * ----------------------------
+ * 修业查看优化模块
+ */
+
 let gpa_global = {
     "bixiu": 0,
     "xianxuan": 0,
@@ -69,65 +75,6 @@ function gpa_colomn(table, title, colomn){
     const gpa_avg = gpa_all / unit_all;
     const score_avg = score_all / unit_all;
     jQuery(title).parent().append(`本部分课程总GPA为：${gpa_avg.toFixed(2)}，平均分为：${score_avg.toFixed(2)}`);
-}
-
-function score_fix(score) {
-    // 对于P的处理待改进
-    switch (score) {
-        case "成绩":
-            return "GPA"
-        case "A+":
-            return 95
-        case "A":
-            return 90
-        case "A-":
-            return 85
-        case "B+":
-            return 80
-        case "B":
-            return 75
-        case "B-":
-            return 70
-        case "C+":
-            return 67
-        case "C":
-            return 65
-        case "C-":
-            return 63
-        case "D":
-            return 60
-        default:
-            return score;
-    }
-}
-
-function score2gpa(score){
-    if (score >= 0) {
-        if (score >= 95){
-            return 4.30;
-        }else if (score >= 90){
-            return 4.00;
-        }else if (score >= 85){
-            return 3.70;
-        }else if (score >= 80){
-            return 3.30;
-        }else if (score >= 75){
-            return 3.00;
-        }else if (score >= 70){
-            return 2.70;
-        }else if (score >= 67){
-            return 2.30;
-        }else if (score >= 65){
-            return 2.00;
-        }else if (score >= 63){
-            return 1.70;
-        }else if (score >= 60){
-            return 1.00;
-        }else{
-            return 0.00;
-        }
-    }
-    return score;
 }
 
 function fix_educationlist_photo(){

@@ -1,3 +1,8 @@
+/**
+ * Electsys++ Project
+ * ----------------------------
+ * 选课优化模块
+ */
 
 const INTERVAL_DEFAULT = 1600;
 const INTERVAL_STEP = 200;

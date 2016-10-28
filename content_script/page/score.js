@@ -1,3 +1,9 @@
+/**
+ * Electsys++ Project
+ * ----------------------------
+ * 成绩单 / GPA 查询优化模块
+ */
+
 function optimize_gpa_query(){
     if(!inUrl("/edu/StudentScore/StudentScoreQuery.aspx"))
         return 0;

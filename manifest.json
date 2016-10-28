@@ -1,5 +1,5 @@
 {
-    "update_url":"http://clients2.google.com/service/update2/crx",
+    "update_url": "http://clients2.google.com/service/update2/crx",
     "name": "Electsys++ 交大选课插件",
     "author": "laohyx",
     "version": "2.4.2",
@@ -19,21 +19,28 @@
     },
     "content_scripts": [
         {
-            "matches": ["*://*.sjtu.edu.cn/*"],
-            "js": ["content_script/jquery-3.1.1.min.js",
-                 "content_script/jquery-ui-1.12.0.min.js",
-                 "content_script/lesson_data.js",
-                 "content_script/lesson.js",
-                 "content_script/nhce.js",
-                 "content_script/optimize.js",
-                 "content_script/score.js",
-                 "content_script/login_page.js",
-                 "content_script/eductionList.js",
-                 "content_script/core_course.js",
-                 "content_script/load.js"
+            "matches": [
+                "*://*.sjtu.edu.cn/*"
+            ],
+            "js": [
+                "content_script/library/jquery-3.1.1.min.js",
+                "content_script/library/jquery-ui-1.12.0.min.js",
+
+                "content_script/data/lesson_data.js",
+                "content_script/data/score_map.js",
+
+                "content_script/page/lesson.js",
+                "content_script/page/nhce.js",
+                "content_script/page/optimize.js",
+                "content_script/page/score.js",
+                "content_script/page/login.js",
+                "content_script/page/eduction_list.js",
+                "content_script/page/core_course.js",
+
+                "content_script/core/load.js"
             ],
             "css": [
-                "content_script/jquery-ui-1.12.0.structure.css"
+                "content_script/library/jquery-ui-1.12.0.structure.css"
             ],
             "run_at": "document_start",
             "all_frames": true

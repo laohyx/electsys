@@ -1,7 +1,8 @@
-/* 
-	nhce.js
-	nhce辅助
-	For 苏文. 2012/06/04
+/**
+ * Electsys++ Project
+ * ----------------------------
+ * nhce 辅助模块
+ * For 苏文. 2012/06/04
  */
 
 function nhce_main(){
