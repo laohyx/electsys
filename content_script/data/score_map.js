@@ -7,7 +7,7 @@
 function score_fix(score, fix_pass) {
     // 对于 P 的处理待改进
     switch (score) {
-        case "成绩":    return "GPA";
+        case "成绩":    return "绩点";
         case "A+":      return 95;
         case "A":       return 90;
         case "A-":      return 85;

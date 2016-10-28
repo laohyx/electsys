@@ -106,7 +106,7 @@ function core_course_append_gpa() {
  */
 function core_course_get_table() {
     let table = jQuery('table#dgSet');
-    return table.size() > 0 ? table : null;
+    return table.length > 0 ? table : null;
 }
 
 /**
@@ -128,7 +128,7 @@ function core_course_parse_row(row) {
     let columns = row.children('td');
 
     // 判断是否为表头
-    if (columns.size() == 0 || !columns.first().text().match(/\d+/)) {
+    if (columns.length == 0 || !columns.first().text().match(/\d+/)) {
         row_info.is_head = true;
         return row_info;
     }
