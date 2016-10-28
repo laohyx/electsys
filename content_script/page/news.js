@@ -5,12 +5,19 @@
  */
 
 /**
- * 首页插入成绩
+ * 模块入口
  */
-function optimize_index_score_query() {
+function optimize_index() {
     if (!inUrl("newsBoard/newsInside.aspx"))
         return 0;
 
+    optimize_index_score_query();
+}
+
+/**
+ * 首页插入成绩
+ */
+function optimize_index_score_query() {
     let l = jQuery("#Form1").children().length;
     jQuery("#Form1")
         .children().slice(l - 1, l)
@@ -122,7 +129,7 @@ function index_show_score_query() {
         .catch(function () {
             jQuery('#index_score_div')
                 .empty()
-                .append('<p>加载失败，请稍后<span style="cursor: pointer; color: #2a6496;">重试</span>~</p>');
+                .append(`<p>加载失败，请稍后<span style="cursor: pointer; color: #2a6496;">重试</span>~</p>`);
             
             index_show_score_register_click();
         });

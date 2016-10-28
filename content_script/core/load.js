@@ -113,13 +113,14 @@ function main()
     optimize_score_query();
     //绩点查询
     optimize_gpa_query();
-    //首页显示成绩
-    optimize_index_score_query();
     //修业查看中计算总绩点
     optimize_my_eduction_list();
 
     //核心课程追加绩点
     optimize_core_course();
+
+    //首页
+    optimize_index();
 
     //快速评教
     fast_eval_index();
