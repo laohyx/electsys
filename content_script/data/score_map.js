@@ -18,6 +18,7 @@ function score_fix(score, fix_pass) {
         case "C":       return 65;
         case "C-":      return 63;
         case "D":       return 60;
+        case "F":       return 0;
         case "通过":    return (fix_pass ? 85 : score);
         default:        return score;
     }

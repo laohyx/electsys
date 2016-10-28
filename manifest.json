@@ -33,6 +33,7 @@
                 "content_script/page/nhce.js",
                 "content_script/page/optimize.js",
                 "content_script/page/score.js",
+                "content_script/page/gpa.js",
                 "content_script/page/login.js",
                 "content_script/page/eduction_list.js",
                 "content_script/page/core_course.js",
