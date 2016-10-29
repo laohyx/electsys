@@ -17,6 +17,7 @@
         "default_title": "Electsys++",
         "default_popup": "popup/popup.html"
     },
+    "options_page": "option/option.html",
     "content_scripts": [
         {
             "matches": [
@@ -52,7 +53,8 @@
     ],
     "permissions": [
         "*://*.sjtu.edu.cn/*",
-        "notifications"
+        "notifications",
+        "storage"
     ],
     "minimum_chrome_version": "49",
     "manifest_version": 2,

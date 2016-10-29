@@ -17,7 +17,8 @@ let edulist_gpa_global = {
 };
 
 function optimize_my_eduction_list() {
-    if (!inUrl("/edu/GradAudit/MyGradList2013.aspx"))
+    if (!inUrl("/edu/GradAudit/MyGradList2013.aspx") ||
+        !option.getBool('optimize_edulist', true))
         return 0;
     // 修复照片失效
     edulist_fix_photo();

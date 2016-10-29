@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+	<title>electsys++ 设置</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<link href="http://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	<link href="http://cdn.bootcss.com/awesome-bootstrap-checkbox/0.3.7/awesome-bootstrap-checkbox.min.css" rel="stylesheet">
+
+	<style>
+		.container {
+			width: 500px;
+		}
+		
+		.options {
+			margin-left: 20px;
+		}
+		
+		.jumbotron {
+			margin-top: 30px;
+			padding-top: 30px;
+			padding-bottom: 30px;
+			text-align: center;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<div class="jumbotron">
+			<h1>electsys++</h1>
+			<p>上海交通大学选课网优化工具</p>
+		</div>
+		<h2>选课</h2>
+
+		<div class="container options">
+			<div class="form-group">
+				<div class="checkbox">
+					<input id="checkbox1-1" type="checkbox" data-key="optimize_lesson" data-checked="true" data-unchecked="false" data-default="true">
+					<label for="checkbox1-1">启用优化</label>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="checkbox">
+					<input id="checkbox1-2" type="checkbox" data-key="optimize_lesson_query_cache" data-checked="true" data-unchecked="false"
+						data-default="true">
+					<label for="checkbox1-2">启用课程查询缓存</label>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="checkbox">
+					<input id="checkbox1-3" type="checkbox" data-key="malltable_slide" data-checked="1" data-unchecked="-1" data-default="1">
+					<label for="checkbox1-3">启用小课表</label>
+				</div>
+			</div>
+		</div>
+
+		<h2>优化</h2>
+
+		<div class="container options">
+			<div class="form-group">
+				<div class="checkbox">
+					<input id="checkbox2-1" type="checkbox" data-key="enable_gpa_query" data-checked="true" data-unchecked="false" data-default="true">
+					<label for="checkbox2-1">启用绩点查询</label>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="checkbox">
+					<input id="checkbox2-2" type="checkbox" data-key="fold_index_socre" data-checked="false" data-unchecked="true" data-default="false">
+					<label for="checkbox2-2">在首页显示成绩</label>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="checkbox">
+					<input id="checkbox2-3" type="checkbox" data-key="optimize_score" data-checked="true" data-unchecked="false" data-default="true">
+					<label for="checkbox2-3">优化成绩查询</label>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="checkbox">
+					<input id="checkbox2-4" type="checkbox" data-key="optimize_core_course" data-checked="true" data-unchecked="false" data-default="true">
+					<label for="checkbox2-4">优化核心课程成绩</label>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="checkbox">
+					<input id="checkbox2-5" type="checkbox" data-key="optimize_edulist" data-checked="true" data-unchecked="false" data-default="true">
+					<label for="checkbox2-5">优化修业查看</label>
+				</div>
+			</div>
+		</div>
+        <br>
+        <button id="reset-btn" class="btn btn-info">恢复默认值</button>
+	</div>
+
+	<div class="footer">
+		<hr style="width: 40%">
+		<div class="container">
+			<p class="text-muted text-center">
+				electsys++ <span id="ext-version"></span> |
+				<a href="https://github.com/laohyx/electsys" target="_blank">electsys++ Project</a>
+			</p>
+		</div>
+	</div>
+
+	<script src="../content_script/library/jquery-3.1.1.min.js"></script>
+	<script src="../content_script/core/option.js"></script>
+	<script src="../library/option.js"></script>
+</body>
+
+</html>

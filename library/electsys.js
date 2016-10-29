@@ -176,3 +176,14 @@ function get_lesson(){
 	localStorage["last_valid_uid"] = localStorage["uid"];
 	
 }
+
+$(document).ready(function(){
+
+	$.getJSON(
+		chrome.extension.getURL("manifest.json"),
+		function(data) {
+			$("#version_span").text(data["version"]);
+		}
+	);
+
+});//document.ready

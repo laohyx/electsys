@@ -76,7 +76,8 @@ function lesson_enable_check () {
 //选课提醒页面
 function optimize_elect_warning()
 {
-    if(!inUrl("/edu/student/elect/electwarning.aspx")) {
+    if(!inUrl("/edu/student/elect/electwarning.aspx") ||
+        !option.getBool('optimize_lesson', true)) {
         return;
     }
 
@@ -93,7 +94,8 @@ function optimize_elect()
     document = document;
     //在课程安排中获取老师评教
     show_teacher_eval();
-    if(!inUrl("/edu/student/elect"))
+    if(!inUrl("/edu/student/elect") ||
+        !option.getBool('optimize_lesson', true))
     {
         return 0;
     }
@@ -140,7 +142,8 @@ function optimize_elect()
 
             // 有缓存的情况下直接加载缓存页面
             //console.log(g_arrange_cache, lid);
-            if (g_arrange_cache.hasOwnProperty(lid)) {
+            if (option.getBool('optimize_lesson_query_cache', true) &&
+                g_arrange_cache.hasOwnProperty(lid)) {
                 var cache = g_arrange_cache[lid];
                 var now = new Date().getTime();
                 //console.log(cache.expire > now);
@@ -277,14 +280,14 @@ function prepend_smalltable()
         jQuery("#LessonTbl1_spanContent_small").append(jQuery(".alltab",document)[jQuery(".alltab",document).length - 1].outerHTML);
         
         
-    if (option.get("malltable_slide", 1) < 0)
+    if (!option.getBool("malltable_slide", true))
         jQuery("#smalltable_container").slideToggle(0);
     else
-        option.set("malltable_slide", 1);
+        option.set("malltable_slide", true);
     
     jQuery(".smalltable_title").click(function(){
         jQuery("#smalltable_container").slideToggle("slow");
-        option.set("malltable_slide", option.get("malltable_slide", 1) * -1);
+        option.setBool("malltable_slide", !option.getBool("malltable_slide", true));
       });
     
 

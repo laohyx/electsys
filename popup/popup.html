@@ -1,51 +1,99 @@
 <html>
+
 <head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<style type="text/css">
-body{border:solid 0px gray; font-size:9px;font-family: "微软雅黑","文泉驿微米黑",Arial,"黑体","宋体";}
-table{border:solid 0px gray; font-size:9px;width:200px;text-align:center;}
-#input_uid,#input_password{width:82px;height:19px;border:1px solid gray;margin:3px 3px;}
-.main{width:200px;}
-#span_notice{color:red;font:bold;}
-.button{width:55px;height:19px;border:gray solid 1px;text-align:center;font-size:9px;padding:0px;background-color:white;margin:3px 3px;}
-.left1{display:inline;float:left;}
-.left2{display:inline;float:left;}
-.left{float:left;}
-.right{float:right;}
-.read_button{color:white;cursor:pointer;}
-.clear{clear:both;}
-</style>
-<script src="../content_script/jquery-3.1.1.min.js"> </script>
-<script src="../library/electsys.js"> </script>
-
-<script type="text/javascript">
-
-$(document).ready(function(){
-
-$.get(
-    chrome.extension.getURL("manifest.json"),
-    function(data){
-        $("#version_span").text(data);
-    },
-    "html"
-);
-
-});//document.ready
-
-</script>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<style type="text/css">
+		body {
+			border: solid 0px gray;
+			font-size: 9px;
+			font-family: "微软雅黑", "文泉驿微米黑", Arial, "黑体", "宋体";
+		}
+		
+		table {
+			border: solid 0px gray;
+			font-size: 9px;
+			width: 200px;
+			text-align: center;
+		}
+		
+		#input_uid,
+		#input_password {
+			width: 82px;
+			height: 19px;
+			border: 1px solid gray;
+			margin: 3px 3px;
+		}
+		
+		.main {
+			width: 200px;
+		}
+		
+		#span_notice {
+			color: red;
+			font: bold;
+		}
+		
+		.button {
+			width: 55px;
+			height: 19px;
+			border: gray solid 1px;
+			text-align: center;
+			font-size: 9px;
+			padding: 0px;
+			background-color: white;
+			margin: 3px 3px;
+		}
+		
+		.left1 {
+			display: inline;
+			float: left;
+		}
+		
+		.left2 {
+			display: inline;
+			float: left;
+		}
+		
+		.left {
+			float: left;
+		}
+		
+		.right {
+			float: right;
+		}
+		
+		.read_button {
+			color: white;
+			cursor: pointer;
+		}
+		
+		.clear {
+			clear: both;
+		}
+	</style>
+	<script src="../content_script/library/jquery-3.1.1.min.js"> </script>
+	<script src="../library/electsys.js"> </script>
 </head>
-<body>
-<div class="main">
-  Electsys++ <span id="version_span"></span><a href="https://github.com/laohyx/electsys" target="_blank" class="right">GitHub</a> <br />
-<hr />
-	<span>Updated everytime.<p></span>
-	<span style="float:right;">
-	laohyx&copy;2011-2013</span>
-    <span style="float:right;">
-    tq5124&copy;2014-?</span>
-<div class="clear"></div>
 
-</div> 
+<body>
+	<div class="main">
+		Electsys++ <span id="version_span"></span>
+		<span class="right">
+     &nbsp;
+  <a href="/option/option.html" target="_blank">Options</a>
+      </span>
+
+		<br />
+		<hr />
+		<p>Updated everytime.</p>
+
+		<span>laohyx&copy; 2011-2013</span>
+        <br>
+		<spa>tq5124&copy; 2014-?</span>
+        <a href="https://github.com/laohyx/electsys" target="_blank" class="right">GitHub</a>
+		<div class="clear"></div>
+
+	</div>
 </body>
 
 </html>

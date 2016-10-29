@@ -6,7 +6,8 @@
 
 
 function optimize_gpa_query() {
-	if (!inUrl("/edu/StudentScore/StudentScoreQuery.aspx"))
+	if (!inUrl("/edu/StudentScore/StudentScoreQuery.aspx")
+        || !option.getBool('enable_gpa_query', true))
 		return;
     
     // 更新下拉框学期（与成绩模块共用）

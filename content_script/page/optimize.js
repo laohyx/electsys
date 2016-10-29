@@ -26,9 +26,11 @@ function optimize_sdtleft()
 		return 0;
     
     //增加查询绩点
-    var score_line= jQuery("td[colspan=2]").slice(8,9).parent();
-    var append_string = '<tr onmouseover="sbar(this)" onmouseout="cbar(this)" style=""><td><img src="../imgs/icon.menu.gif" width="25" height="15"></td><td class="menu"><a href="../StudentScore/StudentScoreQuery.aspx">查询绩点</a></td></tr><tr><td colspan="2"><img src="../imgs/leftline.gif" width="122" height="1"></td></tr>';
-    score_line.after(jQuery(append_string));
+	if (option.getBool('enable_gpa_query', true)) {
+		var score_line= jQuery("td[colspan=2]").slice(8,9).parent();
+		var append_string = '<tr onmouseover="sbar(this)" onmouseout="cbar(this)" style=""><td><img src="../imgs/icon.menu.gif" width="25" height="15"></td><td class="menu"><a href="../StudentScore/StudentScoreQuery.aspx">查询绩点</a></td></tr><tr><td colspan="2"><img src="../imgs/leftline.gif" width="122" height="1"></td></tr>';
+		score_line.after(jQuery(append_string));
+	}
         
     //分享到人人
 	var last_line= jQuery("td[colspan=2]").slice(1,2).parent();

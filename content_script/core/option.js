@@ -4,63 +4,115 @@
  * 设置模块
  */
 
-(function (window) {
+// Support both Chrome & other browsers
+if (!browser && chrome) {
+    var browser = chrome;
+}
+
+(function (window, browser) {
     'use strict';
 
     let option = {};
+    let cachedOptions = Object.create(null);
 
     /**
-     * 获取设置值
+     * 初始化缓存
+     * @return Promise
+     */
+    option.init = function () {
+        return new Promise(resolve => browser.storage.local.get(resolve))
+            .then(data => {
+                cachedOptions = data;
+            });
+    };
+
+    /**
+     * 从缓存获取设置值
      * @param String key 
      * @param Object default_val
+     * @return Object
      */
     option.get = function (key, default_val) {
-        //console.log('get', key, default_val);
-        let val = localStorage.getItem(key);
-        if (typeof val == 'string') {
-            try {
-                val = JSON.parse(val);
-            } catch (e) {
-                console.log('Deserialize option failed');
-            }
+        let val = cachedOptions[key];
+        default_val = default_val || null;
+
+        if (val == null) {
+            val = default_val;
         }
 
-        default_val = default_val || null;
-        //console.log(val);
-        
-        return (val === null) ? default_val : val;
+        // 获取最新的值供下次使用
+        option.getAsync(key);
+        return val;
+    };
+
+    /**
+     * 异步获取设置值
+     * @param String key 
+     * @param Object default_val
+     * @return Promise<Object>
+     */
+    option.getAsync = function (key, default_val) {
+        //console.log('get', key, default_val);
+        return new Promise(resolve => browser.storage.local.get(key, resolve))
+            .then(data => {
+                let val = data[key];
+                cachedOptions[key] = val;
+
+                default_val = default_val || null;
+                
+                return (val == null) ? default_val : val;
+            })
+            .catch(() => default_val);
     };
 
     /**
      * 获取设置的布尔值
      * @param String key
-     * @return Boolean
+     * @param Boolean default_val
+     * @return Promise<Boolean>
      */
-    option.getBool = function (key) {
-        //console.log('getBool', key);
-        let val = option.get(key, false);
-        return Boolean(val);
+    option.getBool = function (key, default_val) {
+        console.log(option.get(key, default_val || false));
+        let val = Boolean(option.get(key, default_val || false));
+        console.log('getBool', key, val);
+        return val;
     };
 
     /**
      * 设置指定项
      * @param String key
      * @param Object value
+     * @return Promise
      */
     option.set = function (key, value) {
         //console.log('set', key, value);
-        localStorage.setItem(key, JSON.stringify(value));
+        cachedOptions[key] = value;
+        return new Promise(resolve => {
+            let obj = {};
+            obj[key] = value;
+            browser.storage.local.set(obj, resolve);
+        });
     };
 
     /**
      * 判断指定项是否存在
      * @param String key
-     * @return Boolean
+     * @return Promise<Boolean>
      */
     option.has = function (key) {
         //console.log('has', key);
-        return this.get(key, null) !== null;
+        return this.get(key, null) != null;
+    };
+
+    /**
+     * 清空设置
+     */
+    option.clear = function () {
+        cachedOptions = Object.create(null);
+        return new Promise(resolve => {
+            browser.storage.local.clear(resolve);
+        });
     };
 
     window.option = option;
-}(window));
+}(window, (browser || chrome)));

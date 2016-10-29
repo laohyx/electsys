@@ -95,43 +95,46 @@ function main()
     jQuery.noConflict();
     
     base_url = document.URL.slice(0,document.URL.indexOf("sjtu.edu.cn") + 11);
-    
-    //设置首页checkbox
-    set_index_page();
-    //优化左边菜单栏 
-    set_left_scroll();
-    //优化左边折叠栏
-    optimize_sdtleft();
-    //优化上栏
-    optimize_flattop();
-    optimize_flattop_content();
-    //优化选课（重点）  
-    optimize_elect();
-    optimize_elect_warning();
-    
-    //成绩查询
-    optimize_score_query();
-    //绩点查询
-    optimize_gpa_query();
-    //修业查看中计算总绩点
-    optimize_my_eduction_list();
 
-    //核心课程追加绩点
-    optimize_core_course();
+    // 初始化设置
+    option.init().then(function () {
+        //设置首页checkbox
+        set_index_page();
+        //优化左边菜单栏 
+        set_left_scroll();
+        //优化左边折叠栏
+        optimize_sdtleft();
+        //优化上栏
+        optimize_flattop();
+        optimize_flattop_content();
+        //优化选课（重点）  
+        optimize_elect();
+        optimize_elect_warning();
+        
+        //成绩查询
+        optimize_score_query();
+        //绩点查询
+        optimize_gpa_query();
+        //修业查看中计算总绩点
+        optimize_my_eduction_list();
 
-    //首页
-    optimize_index();
+        //核心课程追加绩点
+        optimize_core_course();
 
-    //快速评教
-    fast_eval_index();
-    fast_eval_process();
-    
-    //快速评教，期中
-    fast_eval_midterm_index();
-    fast_eval_midterm_process();
-    
-    // NHCE - -
-    nhce_main();
+        //首页
+        optimize_index();
+
+        //快速评教
+        fast_eval_index();
+        fast_eval_process();
+        
+        //快速评教，期中
+        fast_eval_midterm_index();
+        fast_eval_midterm_process();
+        
+        // NHCE - -
+        nhce_main();
+    });
 }
 
 

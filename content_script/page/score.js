@@ -47,7 +47,8 @@ const score_css = `
 `;
 
 function optimize_score_query() {
-    if(!inUrl("/edu/StudentScore/B_StudentScoreQuery.aspx"))
+    if(!inUrl("/edu/StudentScore/B_StudentScoreQuery.aspx") ||
+        !option.getBool('optimize_score', true))
         return;
     
     // 更新下拉框学期

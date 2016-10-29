@@ -44,7 +44,8 @@ const core_course_css = `
  * 核心课程优化入口
  */
 function optimize_core_course() {
-    if (!inUrl('/edu/student/CoreCourses.aspx')) {
+    if (!inUrl('/edu/student/CoreCourses.aspx') ||
+        !option.getBool('optimize_core_course', true)) {
         return;
     }
 
