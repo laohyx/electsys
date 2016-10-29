@@ -9,12 +9,11 @@ if (!browser && chrome) {
     var browser = chrome;
 }
 
-jQuery.get(
+jQuery.getJSON(
     browser.extension.getURL("manifest.json"),
     function(data){
         option.set("extension_version", data["version"]);
-    },
-    "json"
+    }
 );
 
 

@@ -22,6 +22,8 @@ function optimize_index() {
         return 0;
 
     optimize_index_score_query();
+
+    insert_index_ad();
 }
 
 /**
@@ -142,4 +144,8 @@ function index_show_score_query() {
             
             index_show_score_register_click();
         });
+}
+
+function index_insert_ad() {
+
 }
