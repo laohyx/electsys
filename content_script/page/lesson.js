@@ -51,25 +51,24 @@ function lesson_enable_check () {
     
     // enable the function
     var timestamp = Date.parse(new Date())/1000;
-    if (!(localStorage["lesson_enable_timestamp"] > 10))
-        localStorage["lesson_enable_timestamp"] = 100;
-    if(timestamp - localStorage["lesson_enable_timestamp"] > 60 * 5){
+    if (!(option.get("lesson_enable_timestamp", 0) > 10))
+        option.set("lesson_enable_timestamp", 100);
+    if (timestamp - option.get("lesson_enable_timestamp", 0) > 60 * 5) {
         jQuery.ajax({
-          type: 'GET',
-          url: "http://1.laohyxwebauth.sinaapp.com/electsys_lesson_enable.php",
-          data: {},
-          async:true,
-          success: function(data){
-                    localStorage["lesson_enable"] = data["enable"];
-                    console.log( data["enable"]);
-                },
-            error: function(data){
-            console.log("error");
-
+            type: 'GET',
+            url: "http://1.laohyxwebauth.sinaapp.com/electsys_lesson_enable.php",
+            data: {},
+            async: true,
+            success: function (data) {
+                option.set("lesson_enable", data["enable"]);
+                console.log(data["enable"]);
             },
-          dataType: "json"
+            error: function (data) {
+                console.log("error");
+            },
+            dataType: "json"
         });
-        localStorage["lesson_enable_timestamp"] = timestamp;
+        option.set("lesson_enable_timestamp", timestamp);
     }
 
 }
@@ -119,7 +118,7 @@ function optimize_elect()
 */
     //插入小课表
     prepend_smalltable();
-    title[0].innerHTML += " Electsys++  " + localStorage['extension_version'];
+    title[0].innerHTML += " Electsys++  " + option.get('extension_version');
     jQuery('body').append('<div id="electsys_view_lesson"></div>');
     
     type = "tongshi";
@@ -269,7 +268,7 @@ function init_query_list(){
 function prepend_smalltable()
 {
     
-    st_fixed_div = jQuery('  <div id="st_fixed_div" style="margin:0px;width:60%;z-index: 999;position: fixed;top:5px;right:0px;border:1px solid gray;text-align: center;"><div class="smalltable_title" style="height:25px;font-size: 12px;line-height:25px;cursor:pointer;background-image:url(http://electsys.sjtu.edu.cn/edu/imgs/subbg2.gif);">课程表(展开/收起)</div><div id="smalltable_handle" style="cursor:move;"><div id="smalltable_container"><span id="LessonTbl1_spanContent_small"></span></div><div class="smalltable_under" style="height:25px;font-size: 12px;line-height:25px;background:#B5C7DE;">electsys++(' + localStorage['extension_version'] + ') by laohyx(拖动)</div></div></div>');
+    st_fixed_div = jQuery('  <div id="st_fixed_div" style="margin:0px;width:60%;z-index: 999;position: fixed;top:5px;right:0px;border:1px solid gray;text-align: center;"><div class="smalltable_title" style="height:25px;font-size: 12px;line-height:25px;cursor:pointer;background-image:url(http://electsys.sjtu.edu.cn/edu/imgs/subbg2.gif);">课程表(展开/收起)</div><div id="smalltable_handle" style="cursor:move;"><div id="smalltable_container"><span id="LessonTbl1_spanContent_small"></span></div><div class="smalltable_under" style="height:25px;font-size: 12px;line-height:25px;background:#B5C7DE;">electsys++(' + option.get('extension_version', '') + ') by laohyx(拖动)</div></div></div>');
     jQuery("body").prepend(st_fixed_div);
     jQuery("#st_fixed_div").draggable({handle:"#smalltable_handle"});
     if(inUrl("/edu/student/elect/ShortSession.aspx"))
@@ -278,14 +277,14 @@ function prepend_smalltable()
         jQuery("#LessonTbl1_spanContent_small").append(jQuery(".alltab",document)[jQuery(".alltab",document).length - 1].outerHTML);
         
         
-    if (localStorage["malltable_slide"] < 0)
+    if (option.get("malltable_slide", 1) < 0)
         jQuery("#smalltable_container").slideToggle(0);
     else
-        localStorage["malltable_slide"] = 1;
+        option.set("malltable_slide", 1);
     
     jQuery(".smalltable_title").click(function(){
         jQuery("#smalltable_container").slideToggle("slow");
-        localStorage["malltable_slide"] *= -1;
+        option.set("malltable_slide", option.get("malltable_slide", 1) * -1);
       });
     
 

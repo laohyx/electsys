@@ -74,7 +74,7 @@ function optimize_flattop(){
     // var optimize_flattop_fixed_div = jQuery('<div id="optimize_flattop_fixed_div" style="color:white;font-size:12px;margin:0px;width:100px;height:25px;z-index: 999;position:fixed;line-height:25px;top:'+String(div_pos)+'px;right:0px;text-align:center;background-color:#ffae00;cursor:pointer;">隐藏/显示推荐</div>');
     // jQuery("html").append(optimize_flattop_fixed_div);
 
-    var optimize_bottom_fixed_div = jQuery('<div id="optimize_bottom_fixed_div" style="color:black;font-size:12px;margin:0px;z-index: 999;position:fixed;bottom:0px;right:20px;a:visited">Optimized by electsys++ ' + localStorage['extension_version'] + ' - <a href="https://github.com/laohyx/electsys" target="_blank">electsys++ Project</a></div>');
+    var optimize_bottom_fixed_div = jQuery('<div id="optimize_bottom_fixed_div" style="color:black;font-size:12px;margin:0px;z-index: 999;position:fixed;bottom:0px;right:20px;a:visited">Optimized by electsys++ ' + option.get('extension_version') + ' - <a href="https://github.com/laohyx/electsys" target="_blank">electsys++ Project</a></div>');
     jQuery("html").append(optimize_bottom_fixed_div);
     jQuery("#optimize_bottom_fixed_div").click(function(){
         jQuery(this).hide();

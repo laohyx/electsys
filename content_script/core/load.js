@@ -12,7 +12,7 @@ if (!browser && chrome) {
 jQuery.get(
     browser.extension.getURL("manifest.json"),
     function(data){
-        localStorage['extension_version'] = data['version'];
+        option.set("extension_version", data["version"]);
     },
     "json"
 );

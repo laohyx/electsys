@@ -4,6 +4,16 @@
  * 首页优化模块
  */
 
+const ad = `
+<div style="position: fixed; overflow:visible; top: 25px; right: 0px; background-color:rgba(0,0,255,0.2); height: 135px; width: 400px;padding-top:10px; padding-left: 20px; color: white; text-shadow: 0 0 4px red; font-size: 40px; text-align: right; font-family: 微软雅黑; font-weight: 600;">
+  一起来做插件吧~
+</div>
+`;
+
+const ad_qrcode = `
+<div style="position: absolute; top:0px; right: 0px; width: 200px; height: 200px; background-color: rgba(0,0,0,0.4)">QRCode Here</div>
+`;
+
 /**
  * 模块入口
  */
@@ -36,14 +46,13 @@ function optimize_index_score_query() {
         `);
     
     jQuery('#fold_index_score').click(function () {
-        localStorage['fold_index_socre'] = jQuery("#index_score_div").css("display") == "none" ? 0 : 1;
+        option.set('fold_index_socre', jQuery("#index_score_div").css("display") != "none");
         //console.log(localStorage['fold_index_socre']);
         //console.log(jQuery("#index_score_div").height());
         jQuery("#index_score_div").slideToggle();
     });
 
-    if (localStorage['fold_index_socre'] != undefined &&
-        localStorage['fold_index_socre'] == 1) {
+    if (option.getBool('fold_index_socre')) {
         jQuery("#index_score_div").slideToggle(0);
         index_show_score_register_click();
     } else {
