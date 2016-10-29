@@ -72,10 +72,8 @@ if (!browser && chrome) {
      * @return Promise<Boolean>
      */
     option.getBool = function (key, default_val) {
-        console.log(option.get(key, default_val || false));
-        let val = Boolean(option.get(key, default_val || false));
-        console.log('getBool', key, val);
-        return val;
+        //console.log(option.get(key, default_val || false));
+        return Boolean(option.get(key, default_val || false));
     };
 
     /**

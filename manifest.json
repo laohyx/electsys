@@ -60,6 +60,7 @@
     "minimum_chrome_version": "49",
     "manifest_version": 2,
     "web_accessible_resources": [
-        "manifest.json"
+        "manifest.json",
+        "test.json"
     ]
 }

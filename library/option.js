@@ -23,7 +23,7 @@
             let val_checked = checkbox.data('checked');
             let val_unchecked = checkbox.data('unchecked');
             let val_default = checkbox.data('default');
-            console.log(key, val_checked, val_unchecked, val_default);
+            //console.log(key, val_checked, val_unchecked, val_default);
             if (!key ||
                 val_checked === undefined ||
                 val_unchecked === undefined ||
@@ -44,7 +44,7 @@
                 if (val === val_checked) {
                     checkbox.prop('checked', true);
                 }
-                console.log(val, val_checked, val_unchecked);
+                //console.log(val, val_checked, val_unchecked);
 
                 checkbox.change(function () {
                     //console.log('changed');

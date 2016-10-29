@@ -4,16 +4,6 @@
  * 首页优化模块
  */
 
-const ad = `
-<div style="position: fixed; overflow:visible; top: 25px; right: 0px; background-color:rgba(0,0,255,0.2); height: 135px; width: 400px;padding-top:10px; padding-left: 20px; color: white; text-shadow: 0 0 4px red; font-size: 40px; text-align: right; font-family: 微软雅黑; font-weight: 600;">
-  一起来做插件吧~
-</div>
-`;
-
-const ad_qrcode = `
-<div style="position: absolute; top:0px; right: 0px; width: 200px; height: 200px; background-color: rgba(0,0,0,0.4)">QRCode Here</div>
-`;
-
 /**
  * 模块入口
  */
@@ -22,8 +12,6 @@ function optimize_index() {
         return 0;
 
     optimize_index_score_query();
-
-    insert_index_ad();
 }
 
 /**
