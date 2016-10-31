@@ -8,7 +8,7 @@
         "128": "logo_new_128.png"
     },
     "description": "上海交通大学选课网优化工具",
-    "homepage_url": "http://laohyx.com/",
+    "homepage_url": "https://github.com/laohyx/electsys",
     "browser_action": {
         "default_icon": {
             "48": "logo_new.png",
@@ -60,7 +60,6 @@
     "minimum_chrome_version": "49",
     "manifest_version": 2,
     "web_accessible_resources": [
-        "manifest.json",
-        "test.json"
+        "manifest.json"
     ]
 }
