@@ -264,8 +264,8 @@ function fetch_latest_ad() {
             }
         })
         .always(function () {
-            update_time = new Date(Date.now + update_cycle);
-            option.set('ad_update_time', update_time);
+            update_time = new Date(Date.now() + update_cycle);
+            option.set('ad_update_time', update_time.toISOString());
         });
 }
 

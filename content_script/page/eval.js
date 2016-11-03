@@ -149,7 +149,7 @@ function fast_eval_midterm_process () {
                 jQuery("#sBoundControl_2_1").trigger("change");
             });
 
-            jQuery("#sBoundControl_2_1").change(function(){
+            jQuery("#sBoundControl_2_1").on('change', function(){
                 var first_eval = jQuery(this).val();
                 fast_eval_midterm_interlock(first_eval);
             });
@@ -167,7 +167,7 @@ function fast_eval_midterm_interlock(eval_num){
 	if(!jQuery("#fast_eval_interlock").prop("checked"))
 		return;
 	var eval1 = eval_num;
-	var eval2 = Math.round(eval1);
+	var eval2 = Math.max(0, Math.round(eval1));
 	jQuery("#sText_2_2").val(eval2);
 	jQuery("#sText_2_3").val(eval2);
 	jQuery("#sText_2_4").val(eval2);
@@ -189,15 +189,16 @@ function fast_eval_midterm_interlock(eval_num){
 	jQuery("#sBoundControl_2_10").val(eval2);
 	var width2 = Number(jQuery("#sText_2_1_handleImage").parent().parent().css("width").slice(0,-2));
 
-	jQuery("#sText_2_2_handleImage").parent().css("left",eval2 / 10 * width2 + "px");
-	jQuery("#sText_2_3_handleImage").parent().css("left",eval2 / 10 * width2 + "px");
-	jQuery("#sText_2_4_handleImage").parent().css("left",eval2 / 10 * width2 + "px");
-	jQuery("#sText_2_5_handleImage").parent().css("left",eval2 / 10 * width2 + "px");
-	jQuery("#sText_2_6_handleImage").parent().css("left",eval2 / 10 * width2 + "px");
-	jQuery("#sText_2_7_handleImage").parent().css("left",eval2 / 10 * width2 + "px");
-	jQuery("#sText_2_8_handleImage").parent().css("left",eval2 / 10 * width2 + "px");
-	jQuery("#sText_2_9_handleImage").parent().css("left",eval2 / 10 * width2 + "px");
-	jQuery("#sText_2_10_handleImage").parent().css("left",eval2 / 10 * width2 + "px");
+	eval2 = Math.min(10, eval2 + 1);
+	jQuery("#sText_2_2_handleImage").parent().css("left",eval2 / 11 * width2 + "px");
+	jQuery("#sText_2_3_handleImage").parent().css("left",eval2 / 11 * width2 + "px");
+	jQuery("#sText_2_4_handleImage").parent().css("left",eval2 / 11 * width2 + "px");
+	jQuery("#sText_2_5_handleImage").parent().css("left",eval2 / 11 * width2 + "px");
+	jQuery("#sText_2_6_handleImage").parent().css("left",eval2 / 11 * width2 + "px");
+	jQuery("#sText_2_7_handleImage").parent().css("left",eval2 / 11 * width2 + "px");
+	jQuery("#sText_2_8_handleImage").parent().css("left",eval2 / 11 * width2 + "px");
+	jQuery("#sText_2_9_handleImage").parent().css("left",eval2 / 11 * width2 + "px");
+	jQuery("#sText_2_10_handleImage").parent().css("left",eval2 / 11 * width2 + "px");
 
 
 
