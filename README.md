@@ -25,7 +25,7 @@ https://chrome.google.com/webstore/detail/electsys%20%20-%E4%BA%A4%E5%A4%A7%E9%8
 ### 其他浏览器上的插件
 
 #### Safari
-https://github.com/gaocegege/electsys-safari
+https://github.com/dyweb/electsys-safari
 
 #### Firefox
 https://github.com/hczhcz/electsys
