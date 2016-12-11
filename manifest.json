@@ -30,6 +30,8 @@
                 "content_script/data/lesson_data.js",
                 "content_script/data/score_map.js",
 
+                "content_script/patch/DOMElementPatch.js",
+
                 "content_script/core/option.js",
 
                 "content_script/page/lesson.js",
