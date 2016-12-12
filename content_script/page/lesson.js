@@ -279,18 +279,19 @@ function prepend_smalltable()
     else
         jQuery("#LessonTbl1_spanContent_small").append(jQuery(".alltab",document)[jQuery(".alltab",document).length - 1].outerHTML);
         
+    let malltable_slide = option.getBool("malltable_slide", true);
         
-    if (!option.getBool("malltable_slide", true))
+    if (!malltable_slide) {
         jQuery("#smalltable_container").slideToggle(0);
-    else
-        option.set("malltable_slide", true);
+    } else {
+    	option.set("malltable_slide", malltable_slide);
+    }
     
     jQuery(".smalltable_title").click(function(){
         jQuery("#smalltable_container").slideToggle("slow");
-        option.setBool("malltable_slide", !option.getBool("malltable_slide", true));
-      });
-    
-
+        malltable_slide = !malltable_slide;
+        option.set("malltable_slide", malltable_slide);
+    });
 
 }
 
