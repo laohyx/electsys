@@ -104,7 +104,9 @@ function optimize_elect()
     var black_list = [
         "/edu/student/elect/viewLessonTbl.aspx",
         "/edu/student/elect/electResultOuter.aspx",
-        "/edu/student/elect/electwarning.aspx"
+        "/edu/student/elect/electwarning.aspx",
+        "/edu/student/elect/RecommandTblOuter.aspx",
+        "/edu/student/elect/selectRecommandLesson.aspx"
     ];
     if(inUrl(black_list)) {
         return 0;
