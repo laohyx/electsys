@@ -206,10 +206,10 @@ function optimize_elect()
         var GE_type = jQuery.inJSON(GE_list,lesson_name);
         
         if(type == "renxuan" && GE_type.length > 0){	// 普通选课
-            radio.parentElement.parentElement.parentElement.children[1].innerHTML = "<font class='chongdi_font' color=\"red\">" + lesson_name + "（冲抵通识：" + GE_table[GE_type[0]] + "）</font>";
+            radio.parentElement.parentElement.parentElement.children[1].innerHTML = "<font class='chongdi_font' color=\"red\">" + lesson_name + "（2015级及以前可冲抵通识：" + GE_table[GE_type[0]] + "）</font>";
         }
         else if(type == "xiaoxueqi" && type_name != "通识" && GE_type.length > 0){	// 小学期选课
-            radio.parentElement.parentElement.parentElement.children[1].innerHTML = "<font class='chongdi_font' color=\"red\">" + lesson_name + "（冲抵通识：" + GE_table[GE_type[0]] + "）</font>";
+            radio.parentElement.parentElement.parentElement.children[1].innerHTML = "<font class='chongdi_font' color=\"red\">" + lesson_name + "（2015级及以前可冲抵通识：" + GE_table[GE_type[0]] + "）</font>";
         }
         else{
             //radio.parentElement.parentElement.parentElement.children[1].innerHTML = "<font color=\"blue\">" + lesson_name + "</font>";
