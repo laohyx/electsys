@@ -11,7 +11,7 @@ function optimize_index() {
     if (!inUrl("newsBoard/newsInside.aspx"))
         return 0;
 
-    optimize_index_score_query();
+    //optimize_index_score_query();
 }
 
 /**
