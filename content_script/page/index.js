@@ -42,7 +42,7 @@ function optimize_index_score_query() {
         jQuery("#index_score_div").slideToggle();
     });
 
-    if (option.getBool('fold_index_socre')) {
+    if (option.getBool('fold_index_socre', true)) {
         jQuery("#index_score_div").slideToggle(0);
         index_show_score_register_click();
     } else {
@@ -67,7 +67,6 @@ function index_show_score_register_click() {
  * 加载成绩
  */
 function index_show_score_query() {
-    // 查询所有成绩后筛选，避免和用户手动查询冲突
     jQuery.get(base_url + '/edu/StudentScore/B_StudentScoreQuery.aspx')
         // 使用 Promise 避免回调地狱
         .then(function (html) {
@@ -94,7 +93,7 @@ function index_show_score_query() {
             html = jQuery(html);
             let score_table = html.find('#dgScore');
             if (score_table.length == 0) {
-                throw new Error('Incorrect page loaed');
+                throw new Error('Incorrect page loaded');
             }
 
             // 删除非最终成绩行
