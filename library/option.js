@@ -28,17 +28,17 @@
 					$('#checkbox2-8').attr('disabled','disabled');
 					$('#usr').attr('disabled','disabled');
 					$('#pwd').attr('disabled','disabled');
-					$('#submit-btn').attr('disabled','disabled');
+					//$('#submit-btn').attr('disabled','disabled');
 				}
 			}else if (key === 'auto_login') {
 				if (val) {
 					$('#usr').removeAttr('disabled');
 					$('#pwd').removeAttr('disabled');
-					$('#submit-btn').removeAttr('disabled');
+					//$('#submit-btn').removeAttr('disabled');
 				}else{
 					$('#usr').attr('disabled','disabled');
 					$('#pwd').attr('disabled','disabled');
-					$('#submit-btn').attr('disabled','disabled');
+					//$('#submit-btn').attr('disabled','disabled');
 				}
 			}
 		}
@@ -129,6 +129,7 @@
 					}
 				});
             $("#suc").fadeIn();
+			setTimeout(function(){$("#suc").fadeOut();}, 2000);
 		});
     }
 
