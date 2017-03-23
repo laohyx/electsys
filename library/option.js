@@ -128,9 +128,14 @@
 						console.log(chrome.runtime.lastError);
 					}
 				});
+<<<<<<< HEAD
             $("#suc").fadeIn();
 			});
 
+=======
+			alert("Update successfully!");
+		});
+>>>>>>> origin/master
     }
 
     $(document).ready(function () {
