@@ -82,11 +82,34 @@
         });
     }
 
+	
     function initButton() {
         $('#reset-btn').click(function () {
             option.clear();
             initOptions();
         });
+		$('#submit-btn').click(function () {
+			if (!($('#checkbox2-7').prop('checked') && $('#checkbox2-8').prop('checked'))) {
+				return false;
+			}
+			let usr = $('#usr').val();
+			let pwd = $('#pwd').val();
+			if ((usr==='')||(pwd==='')) {
+				return false;
+			}
+			option.set('usr', usr)
+				.then(function () {
+					if (chrome.runtime.lastError) {
+						console.log(chrome.runtime.lastError);
+					}
+				});
+			option.set('pwd', pwd)
+				.then(function () {
+					if (chrome.runtime.lastError) {
+						console.log(chrome.runtime.lastError);
+					}
+				});
+		});
     }
 
     $(document).ready(function () {
