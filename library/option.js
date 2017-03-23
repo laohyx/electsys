@@ -68,7 +68,9 @@
                 }
                 if (val === val_checked) {
                     checkbox.prop('checked', true);
-                }
+                }else{
+					checkbox.prop('checked', false);
+				}
                 //console.log(val, val_checked, val_unchecked);
 				_auto_login_setting(key,val);
                 checkbox.change(function () {
