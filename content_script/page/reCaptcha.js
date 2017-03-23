@@ -474,16 +474,13 @@ window.onload = function(){
     if(jQuery("title")[0].innerText=="上海交通大学统一身份认证")
     {
         //console.log("in convert");
-<<<<<<< HEAD
         chrome.storage.sync.get('recongnize_captcha', function(result) {
             rec = result['recongnize_captcha'];
             if(rec)
                 start()
         });
         //start();
-=======
-        start();
->>>>>>> origin/master
+
         //main();
     }
     //t=setTimeout("main()",100);
