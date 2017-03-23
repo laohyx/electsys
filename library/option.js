@@ -108,6 +108,8 @@
 			initInput();
         });
 		$('#submit-btn').click(function () {
+			$("#suc").fadeIn();
+			setTimeout(function(){$("#suc").fadeOut();}, 2000);
 			if (!($('#checkbox2-7').prop('checked') && $('#checkbox2-8').prop('checked'))) {
 				return false;
 			}
@@ -128,8 +130,6 @@
 						console.log(chrome.runtime.lastError);
 					}
 				});
-            $("#suc").fadeIn();
-			setTimeout(function(){$("#suc").fadeOut();}, 2000);
 		});
     }
 
