@@ -17,6 +17,8 @@
     }
 
     function initOptions() {
+        //$("#suc")[0].fadeOut();
+		$("#suc").fadeOut();
 		function _auto_login_setting(key, val) {
 			if (key === 'recongnize_captcha') {
 				if (val) {
@@ -126,7 +128,9 @@
 						console.log(chrome.runtime.lastError);
 					}
 				});
-		});
+            $("#suc").fadeIn();
+			});
+
     }
 
     $(document).ready(function () {
