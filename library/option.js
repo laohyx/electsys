@@ -126,6 +126,7 @@
 						console.log(chrome.runtime.lastError);
 					}
 				});
+			alert("Update successfully!");
 		});
     }
 
