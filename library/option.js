@@ -48,13 +48,35 @@
 
                 checkbox.change(function () {
                     //console.log('changed');
+					//console.log(key);
                     let val = checkbox.prop('checked') ? val_checked : val_unchecked;
+					//console.log(val);
                     option.set(key, val)
                         .then(function () {
                             if (chrome.runtime.lastError) {
                                 console.log(chrome.runtime.lastError);
                             }
                         });
+						
+					if (key === 'recongnize_captcha') {
+						if (val) {
+							$('#checkbox2-8').removeAttr('disabled');
+						}else{
+							if ($('#checkbox2-8').prop('checked')) $('#checkbox2-8').click();
+							$('#checkbox2-8').attr('disabled','disabled');
+							$('#usr').attr('disabled','disabled');
+							$('#pwd').attr('disabled','disabled');
+						}
+					}else if (key === 'auto_login') {
+						if (val) {
+							$('#usr').removeAttr('disabled','disabled');
+							$('#pwd').removeAttr('disabled','disabled');
+						}else{
+							$('#usr').attr('disabled','disabled');
+							$('#pwd').attr('disabled','disabled');
+						}
+					}
+					
                 });
             });
         });
