@@ -17,6 +17,30 @@
     }
 
     function initOptions() {
+		function _auto_login_setting(key, val) {
+			if (key === 'recongnize_captcha') {
+				if (val) {
+					$('#checkbox2-8').removeAttr('disabled');
+				}else{
+					if ($('#checkbox2-8').prop('checked')) $('#checkbox2-8').click();
+					$('#checkbox2-8').attr('disabled','disabled');
+					$('#usr').attr('disabled','disabled');
+					$('#pwd').attr('disabled','disabled');
+					$('#submit-btn').attr('disabled','disabled');
+				}
+			}else if (key === 'auto_login') {
+				if (val) {
+					$('#usr').removeAttr('disabled');
+					$('#pwd').removeAttr('disabled');
+					$('#submit-btn').removeAttr('disabled');
+				}else{
+					$('#usr').attr('disabled','disabled');
+					$('#pwd').attr('disabled','disabled');
+					$('#submit-btn').attr('disabled','disabled');
+				}
+			}
+		}
+		
         $('input[type=checkbox]').each(function () {
             let checkbox = $(this);
             let key = checkbox.data('key');
@@ -37,6 +61,7 @@
             } catch (e) { }
 
             option.getAsync(key).then(function (val) {
+				//console.log(key,val);
                 if (val == null) {
                     val = val_default;
                     option.set(key, val);
@@ -45,7 +70,7 @@
                     checkbox.prop('checked', true);
                 }
                 //console.log(val, val_checked, val_unchecked);
-
+				_auto_login_setting(key,val);
                 checkbox.change(function () {
                     //console.log('changed');
 					//console.log(key);
@@ -57,36 +82,26 @@
                                 console.log(chrome.runtime.lastError);
                             }
                         });
-						
-					if (key === 'recongnize_captcha') {
-						if (val) {
-							$('#checkbox2-8').removeAttr('disabled');
-						}else{
-							if ($('#checkbox2-8').prop('checked')) $('#checkbox2-8').click();
-							$('#checkbox2-8').attr('disabled','disabled');
-							$('#usr').attr('disabled','disabled');
-							$('#pwd').attr('disabled','disabled');
-						}
-					}else if (key === 'auto_login') {
-						if (val) {
-							$('#usr').removeAttr('disabled','disabled');
-							$('#pwd').removeAttr('disabled','disabled');
-						}else{
-							$('#usr').attr('disabled','disabled');
-							$('#pwd').attr('disabled','disabled');
-						}
-					}
-					
+					_auto_login_setting(key,val);
                 });
             });
         });
     }
 
+	function initInput() {
+		option.getAsync('usr').then(function (usr) {
+			$('#usr').val(usr);
+		});
+		option.getAsync('pwd').then(function (pwd) {
+			$('#pwd').val(pwd);
+		});
+	}
 	
     function initButton() {
         $('#reset-btn').click(function () {
             option.clear();
             initOptions();
+			initInput();
         });
 		$('#submit-btn').click(function () {
 			if (!($('#checkbox2-7').prop('checked') && $('#checkbox2-8').prop('checked'))) {
@@ -115,6 +130,7 @@
     $(document).ready(function () {
         initVersion();
         initOptions();
+		initInput();
         initButton();
     });
 }(window, document, $));
