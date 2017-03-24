@@ -20,7 +20,7 @@ if (!browser && chrome) {
      * @return Promise
      */
     option.init = function () {
-        return new Promise(resolve => browser.storage.sync.get(resolve))
+        return new Promise(resolve => browser.storage.local.get(resolve))
             .then(data => {
                 cachedOptions = data;
             });
@@ -53,7 +53,7 @@ if (!browser && chrome) {
      */
     option.getAsync = function (key, default_val) {
         //console.log('get', key, default_val);
-        return new Promise(resolve => browser.storage.sync.get(key, resolve))
+        return new Promise(resolve => browser.storage.local.get(key, resolve))
             .then(data => {
                 let val = data[key];
                 cachedOptions[key] = val;
@@ -88,7 +88,7 @@ if (!browser && chrome) {
         return new Promise(resolve => {
             let obj = {};
             obj[key] = value;
-            browser.storage.sync.set(obj, resolve);
+            browser.storage.local.set(obj, resolve);
         });
     };
 
@@ -108,7 +108,7 @@ if (!browser && chrome) {
     option.clear = function () {
         cachedOptions = Object.create(null);
         return new Promise(resolve => {
-            browser.storage.sync.clear(resolve);
+            browser.storage.local.clear(resolve);
         });
     };
 
