@@ -136,7 +136,7 @@
     $(document).ready(function () {
         initVersion();
         initOptions();
-		initInput();
+        initInput();
         initButton();
     });
 }(window, document, $));
