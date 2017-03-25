@@ -74,7 +74,7 @@
         button = document.getElementsByClassName("btn");
         //isAutoLog();
         login = false;
-        chrome.storage.sync.get('auto_login', function(result) {
+        chrome.storage.local.get('auto_login', function(result) {
             login = result['auto_login'];
             waitClick(login);
         });
@@ -85,19 +85,19 @@
         console.log(login);
         if (login==true&&(psw.value=="" ||psw.value=="undefined"||user.value=="undefined"|| typeof(psw.value)=="undefined" ||typeof(user.value)=="undefined" || user.value=="")) {
             console.log("auto login");
-            chrome.storage.sync.get('usr', function(result) {
+            chrome.storage.local.get('usr', function(result) {
                 user.value=result['usr'];
                 if(user.value=="undefined")
                     user.value='';
             });
-            chrome.storage.sync.get('pwd', function(result) {
+            chrome.storage.local.get('pwd', function(result) {
                 psw.value=result['pwd'];
                 if(psw.value=="undefined")
                     psw.value='';
             });
             setTimeout(function(){
                 login = false;
-                chrome.storage.sync.get('auto_login', function(result) {
+                chrome.storage.local.get('auto_login', function(result) {
                     login = result['auto_login'];
                     waitClick(login);
                 });
@@ -397,9 +397,9 @@
     window.onload = function() {
         if ($("title")[0].innerText == "上海交通大学统一身份认证") {
             //console.log("in convert");
-            chrome.storage.sync.get('recongnize_captcha', function (result) {
+            chrome.storage.local.get('recongnize_captcha', function (result) {
                 rec = result['recongnize_captcha'];
-                if (rec)
+                if (rec || rec === undefined)
                     start();
             });
         }
