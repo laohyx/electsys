@@ -402,6 +402,7 @@
                 if (rec || rec === undefined)
                     start();
             });
+            $('div.captcha-input>img').on("load",start);
         }
     };
 })(window, document, jQuery);
