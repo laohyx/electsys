@@ -11,3 +11,7 @@ Makefile.in
 /depcomp
 /install-sh
 /missing
+.idea/electsys-master.iml
+.idea/vcs.xml
+.idea/modules.xml
+.idea/workspace.xml

@@ -45,7 +45,9 @@
                 "content_script/page/index.js",
                 "content_script/page/frame.js",
 
-                "content_script/core/load.js"
+                "content_script/core/load.js",
+
+                "content_script/page/captcha.js"
             ],
             "css": [
                 "content_script/library/jquery-ui-1.12.0.structure.css"
