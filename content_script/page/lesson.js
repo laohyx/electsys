@@ -8,7 +8,7 @@ const INTERVAL_DEFAULT = 1600;
 const INTERVAL_STEP = 200;
 
 function post(url,data,lid)
-{	
+{
 /*	if (localStorage["lesson_enable"] == undefined || localStorage["lesson_enable"] == 0) {
         return 0;
     };
@@ -29,11 +29,11 @@ function post(url,data,lid)
         },
         dataType: "html"
     });
-    
+
     return 0;
 }
 
-    
+
 //颜色对照表
 color = [];
 color[0] = ["#84C1FF","#84C1FF","#84C1FF","#84C1FF","#84C1FF","#84C1FF","#84C1FF"]
@@ -48,7 +48,7 @@ var g_last_query_success = new Date().getTime() - INTERVAL_DEFAULT;
 var g_ajax_sending = false;
 
 function lesson_enable_check () {
-    
+
     // enable the function
     var timestamp = Date.parse(new Date())/1000;
     if (!(option.get("lesson_enable_timestamp", 0) > 10))
@@ -90,7 +90,7 @@ function optimize_elect_warning()
 
 function optimize_elect()
 {
-        
+
     document = document;
     //在课程安排中获取老师评教
     show_teacher_eval();
@@ -124,9 +124,9 @@ function optimize_elect()
     prepend_smalltable();
     title[0].innerHTML += " Electsys++  " + option.get('extension_version');
     jQuery('body').append('<div id="electsys_view_lesson"></div>');
-    
+
     type = "tongshi";
-    
+
     if(inUrl("/edu/student/elect/speltyRequiredCourse.aspx"))
         type = "bixiu";
     if(inUrl("/edu/student/elect/speltyCommonCourse.aspx"))
@@ -135,7 +135,7 @@ function optimize_elect()
         type = "renxuan";
     if(inUrl("/edu/student/elect/ShortSession.aspx"))
         type = "xiaoxueqi";
-    
+
     radiogroup = jQuery("[name=myradiogroup]",document);
     for(radio_index = 0; radio_index < radiogroup.length ; radio_index++){
         jQuery(radiogroup[radio_index]).click(function () {
@@ -189,22 +189,22 @@ function optimize_elect()
             }
 
             setTimeout(function () {
-                jQuery("input[value=课程安排]").trigger("click"); 
+                jQuery("input[value=课程安排]").trigger("click");
             }, 400);
         })
         var lid = radiogroup[radio_index].value;
         //console.log(radio_index + "~~" + lid);
         radio = radiogroup[radio_index];
         lesson_name = radio.parentElement.parentElement.parentElement.children[1].innerHTML.toString().trim();
-        
+
         var type_name = "";
         if(type == "xiaoxueqi") {
             type_name = radio.parentElement.parentElement.parentElement.children[3].innerHTML.toString().trim();
         }
-        
+
         GE_table = ["other","人文学科","社会科学","自然科学与工程技术","数学或逻辑学"];
         var GE_type = jQuery.inJSON(GE_list,lesson_name);
-        
+
         if(type == "renxuan" && GE_type.length > 0){	// 普通选课
             radio.parentElement.parentElement.parentElement.children[1].innerHTML = "<font class='chongdi_font' color=\"red\">" + lesson_name + "（2015级及以前可冲抵通识：" + GE_table[GE_type[0]] + "）</font>";
         }
@@ -215,9 +215,9 @@ function optimize_elect()
             //radio.parentElement.parentElement.parentElement.children[1].innerHTML = "<font color=\"blue\">" + lesson_name + "</font>";
         }
         //console.log(lesson_name);
-        
+
     }
-    
+
     var html = jQuery("[name=myradiogroup]",document).slice(0,1).parent().parent().parent().prev().children().slice(0,1).html();
     jQuery("[name=myradiogroup]",document).slice(0,1).parent().parent().parent().prev().children().slice(0,1).css({"background-color":"#83A9C9", "background-image":"none"});
     jQuery("[name=myradiogroup]",document).slice(0,1).parent().parent().parent().prev().children().slice(0,1).html("<a href='#' class='refresh_list' style='font-weight:400;'>【刷新信息】</a>");
@@ -239,7 +239,7 @@ function optimize_elect()
 
         setInterval("processLidQueue();", document.processInterval);
     });
-    
+
 }
 function init_query_list(){
     jQuery(".fullspan,.attrtag").remove();
@@ -272,23 +272,25 @@ function init_query_list(){
 
 function prepend_smalltable()
 {
-    
+
     st_fixed_div = jQuery('  <div id="st_fixed_div" style="margin:0px;width:60%;z-index: 999;position: fixed;top:5px;right:0px;border:1px solid gray;text-align: center;"><div class="smalltable_title" style="height:25px;font-size: 12px;line-height:25px;cursor:pointer;background-image:url(http://electsys.sjtu.edu.cn/edu/imgs/subbg2.gif);">课程表(展开/收起)</div><div id="smalltable_handle" style="cursor:move;"><div id="smalltable_container"><span id="LessonTbl1_spanContent_small"></span></div><div class="smalltable_under" style="height:25px;font-size: 12px;line-height:25px;background:#B5C7DE;">electsys++(' + option.get('extension_version', '') + ') by laohyx(拖动)</div></div></div>');
     jQuery("body").prepend(st_fixed_div);
     jQuery("#st_fixed_div").draggable({handle:"#smalltable_handle"});
+    /*
     if(inUrl("/edu/student/elect/ShortSession.aspx"))
         jQuery("#LessonTbl1_spanContent_small").append(jQuery(".alltab",document)[jQuery(".alltab",document).length - 2].outerHTML);
     else
         jQuery("#LessonTbl1_spanContent_small").append(jQuery(".alltab",document)[jQuery(".alltab",document).length - 1].outerHTML);
-        
+    */
+    jQuery("#LessonTbl1_spanContent_small").append(jQuery(".alltab",document)[jQuery(".alltab",document).length - 1].outerHTML);
     let malltable_slide = option.getBool("malltable_slide", true);
-        
+
     if (!malltable_slide) {
         jQuery("#smalltable_container").slideToggle(0);
     } else {
     	option.set("malltable_slide", malltable_slide);
     }
-    
+
     jQuery(".smalltable_title").click(function(){
         jQuery("#smalltable_container").slideToggle("slow");
         malltable_slide = !malltable_slide;
@@ -319,12 +321,12 @@ function processLidQueue()
         data["OutSpeltyEP1$dpYx"]=jQuery("#OutSpeltyEP1_dpYx",document).val();
         data["OutSpeltyEP1$dpNj"]=jQuery("#OutSpeltyEP1_dpNj",document).val();
     }
-    
+
     data["myradiogroup"] = lid;
     sub_button = jQuery('[value=课程安排]',document)
     data[sub_button.attr("name")] = sub_button.val();
     input_elements = jQuery("[type=hidden]",document);
-    
+
     form = jQuery("form",document);
     url = base_url + "/edu/student/elect/" + form.attr("action");
     post(url,data,lid);
@@ -334,7 +336,7 @@ function processLidQueue()
 function clearAllInterval(){
     var highestIntervalId = setInterval(";", 100000);
     for (var i = 0 ; i <= highestIntervalId ; i++) {
-        clearInterval(i); 
+        clearInterval(i);
     }
 
 }
@@ -351,7 +353,7 @@ function getArrangement(lid,type)
     sub_button = jQuery('[value=课程安排]',document)
     data[sub_button.attr("name")] = sub_button.val();
     input_elements = jQuery("[type=hidden]",document);
-    
+
     form = jQuery("form",document);
     url = base_url + "/edu/student/elect/" + form.attr("action");
 
@@ -406,10 +408,10 @@ function processArrangement(html, lid, url)
 
 // 开始处理html，并绘制至课表中
 // 这段代码是我大二写的，已经是2011年的事了。。。相信它会运行很久
-    
+
     var lessons = [];
     tablelsn = jQuery("#LessonTime1_gridMain",html)[0];
-    
+
 
     trs = jQuery("tr",tablelsn).slice(1);
 //		console.log(lid);
@@ -419,10 +421,10 @@ function processArrangement(html, lid, url)
         l.times = []
         pattern = new RegExp("星期(.*?)第(.*?)节--第(.*?)节","ig");
         matches = l.arrange.match(pattern);
-        
-                
+
+
         matches = matches.distinct();
-        for (i = 0 ; i < matches.length;i++) 
+        for (i = 0 ; i < matches.length;i++)
         {
             pattern = new RegExp("星期(.*?)第(.*?)节--第(.*?)节","ig");
             txt = matches[i];
@@ -457,8 +459,8 @@ function processArrangement(html, lid, url)
         //n个老师
         lessons.push(l);
     }
-    
-    
+
+
     //保存lessons信息到tr中,用隐藏的div存储
     lessontr = jQuery("input[value=" + lid + "]",document).parent().parent().parent();
     // console.log(lessons);
@@ -509,19 +511,19 @@ function processArrangement(html, lid, url)
         jQuery("#loadimg_"+lid,document).remove();
         return 0;
     }
-    
+
     //lessontr.slice(0,1).children().slice(0,1).append(fullspan);
 
-    
-    
-    
+
+
+
     lessontr.mouseover(function(){
         if(jQuery(this).attr("clicked") != "1"){
             jQuery(this).css("background-color","#CFC");
-            draw_lesson(jQuery(this).attr("lid"),0);	
+            draw_lesson(jQuery(this).attr("lid"),0);
         }
     });
-    
+
     lessontr.click(function(){
         jQuery(this).css("background-color","#FC9");
         if(jQuery(this).attr("clicked") == "1"){
@@ -532,14 +534,14 @@ function processArrangement(html, lid, url)
             draw_lesson(jQuery(this).attr("lid"),1);
             jQuery(this).attr("clicked","1");
         }
-            
+
     });
     jQuery("input[value=" + lid + "]",document).parent().parent().parent().mouseout(function(){
         if(jQuery(this).attr("clicked") != "1"){
             jQuery(this).attr("style","");
             clearDraw_lid(jQuery(this).attr("lid"));
         }
-            
+
     })
 
     return 0;
@@ -574,8 +576,8 @@ function draw_lesson(lid,clicked)
         teacher_order = Number(lesson.getAttribute("teacher_order")) + 1;
         draw(day,from,to,full,lid,clicked,teacher_order);
     }
-    
-    
+
+
 
 }
 
@@ -592,14 +594,14 @@ function draw(weekday,hour_from,hour_to,isFull,lid,clicked,t_order)
     if(inUrl("/edu/student/elect/ShortSession.aspx")){
         //table_span = jQuery("#LessonTbl1_span1",document);
         table = jQuery(".alltab",document)[jQuery(".alltab",document).length - 2];
-    }	
+    }
     else{
         table_span = jQuery("#LessonTbl1_spanContent,#lessonTbl_spanContent",document);
         table = jQuery(".alltab",table_span)[0];
     }
-        
-    
-    
+
+
+
     tbody = table.children[0];
     tablex = getTop(table);
     tabley = getLeft(table);
@@ -620,18 +622,18 @@ function draw(weekday,hour_from,hour_to,isFull,lid,clicked,t_order)
         cellwidth[n]=trlist[0].children[n].clientWidth+2;
     }
     //动态处理表格宽度 over
-    
+
 
     posx=cellwidth[0];
     posy=0;
-    
+
     weekday = Number(weekday);
     hour_from = Number(hour_from);
     hour_to = Number(hour_to);
     isFull = Number(isFull);
     clicked = Number(clicked);
-    
-    
+
+
     for(var n=1;n < weekday;n++)
         posx += cellwidth[n];
     for ( var n = 0; n < hour_from; n++) {
@@ -640,10 +642,10 @@ function draw(weekday,hour_from,hour_to,isFull,lid,clicked,t_order)
     draw_height = 0;
     for ( var n = hour_from; n <= hour_to ; n++){
         draw_height += cellheight[n];
-        
+
     }
     draw_width = cellwidth[weekday];
-    
+
     if(t_order > 5)
     {
         draw_color = color[isFull][6 - 1];
@@ -652,7 +654,7 @@ function draw(weekday,hour_from,hour_to,isFull,lid,clicked,t_order)
     {
         draw_color = color[isFull][t_order - 1];
     }
-    
+
     draw_obj = document.createElement("div");
     draw_id = "draw"+weekday+hour_from+hour_to+isFull;
     draw_obj.setAttribute("class","lsntable_draw");
@@ -664,23 +666,23 @@ function draw(weekday,hour_from,hour_to,isFull,lid,clicked,t_order)
         draw_obj.innerHTML += "<br />未满";
     else
         draw_obj.innerHTML += "<br />满";
-    
+
     jQuery("#LessonTbl1_spanContent,#lessonTbl_spanContent").append(draw_obj);
     //jQuery("#"+draw_id).css({"width":draw_width-border_width,"height":draw_height-border_width,"position":"absolute","top":posy+getTop(table),"left":posx+getLeft(table)+border_width,"border":border_width+"px solid "+draw_color})
     jQuery("."+draw_id,document).css({"width":draw_width - 3,"height":draw_height - 3 ,"position":"absolute","top":posy+getTop(table)+2,"left":posx+getLeft(table)+2,"background":draw_color,"font-size":"12px","opacity":"0.8","text-align":"center","border":"1px solid "+border_color[isFull]});
 
-    
-    
-    
-    
-    
+
+
+
+
+
     /****************************************************
-     * 
-     * 
+     *
+     *
      * 画小课表
-     * 
-     * 
-     * 
+     *
+     *
+     *
      */
 
     //动态处理表格宽度
@@ -689,7 +691,7 @@ function draw(weekday,hour_from,hour_to,isFull,lid,clicked,t_order)
     //课表的处理
     table = jQuery(".alltab",smalltable_span)[0];
 
-    
+
     tbody = table.children[0];
     tablex = getTop(table);
     tabley = getLeft(table);
@@ -711,18 +713,18 @@ function draw(weekday,hour_from,hour_to,isFull,lid,clicked,t_order)
         cellwidth[n]=trlist[0].children[n].clientWidth+2;
     }
     //动态处理表格宽度 over
-    
+
 
     posx=cellwidth[0];
     posy=0;
-    
+
     weekday = Number(weekday);
     hour_from = Number(hour_from);
     hour_to = Number(hour_to);
     isFull = Number(isFull);
     clicked = Number(clicked);
-    
-    
+
+
     for(var n=1;n < weekday;n++)
         posx += cellwidth[n];
     for ( var n = 0; n < hour_from; n++) {
@@ -731,7 +733,7 @@ function draw(weekday,hour_from,hour_to,isFull,lid,clicked,t_order)
     draw_height = 0;
     for ( var n = hour_from; n <= hour_to ; n++){
         draw_height += cellheight[n];
-        
+
     }
     draw_width = cellwidth[weekday];
     if(t_order > 5)
@@ -742,7 +744,7 @@ function draw(weekday,hour_from,hour_to,isFull,lid,clicked,t_order)
     {
         draw_color = color[isFull][t_order - 1];
     }
-    
+
     draw_obj = document.createElement("div");
     draw_id = "draw"+weekday+hour_from+hour_to+isFull;
     draw_obj.setAttribute("class","lsntable_draw");
@@ -780,14 +782,14 @@ function clearDraw(clicked)
         jQuery("div[clicked=1]",tables).remove();
     //jQuery(".lsntable_draw").remove();
 }
-function Trim(str,is_global) 
-{ 
-    var result; 
-        result = str.replace(/(^\s+)|(\s+jQuery)/g,""); 
-    if(is_global.toLowerCase()=="g") 
-        result = result.replace(/\s/g,""); 
-    return result; 
-} 
+function Trim(str,is_global)
+{
+    var result;
+        result = str.replace(/(^\s+)|(\s+jQuery)/g,"");
+    if(is_global.toLowerCase()=="g")
+        result = result.replace(/\s/g,"");
+    return result;
+}
 
 function show_teacher_eval () {
     if(!inUrl("/edu/lesson/viewLessonArrange.aspx"))
