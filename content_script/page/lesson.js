@@ -593,7 +593,7 @@ function draw(weekday,hour_from,hour_to,isFull,lid,clicked,t_order)
     //Summer session
     if(inUrl("/edu/student/elect/ShortSession.aspx")){
         //table_span = jQuery("#LessonTbl1_span1",document);
-        table = jQuery(".alltab",document)[jQuery(".alltab",document).length - 2];
+        table = jQuery(".alltab",document)[jQuery(".alltab",document).length - 1];
     }
     else{
         table_span = jQuery("#LessonTbl1_spanContent,#lessonTbl_spanContent",document);
