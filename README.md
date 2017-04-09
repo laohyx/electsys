@@ -4,7 +4,7 @@
 Electsys++ SJTU electsys optimizer.
 上海交通大学本科教学信息服务网优化插件。
 
-本着交流学习、方便同学的目的将此插件建设为开源项目！
+本着交流学习、方便同学的目的将此插件建设为**开源项目**！欢迎各位同学参与贡献，提交[问题反馈](https://github.com/laohyx/electsys/issues)，或提交 [Pull Request](https://github.com/laohyx/electsys/pulls)。
 
 
 ### 安装
