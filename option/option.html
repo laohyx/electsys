@@ -24,6 +24,23 @@
 			padding-bottom: 30px;
 			text-align: center;
 		}
+
+		.option-input {
+		    width: 130px !important;
+		    margin-right: 15px;
+		}
+
+		.option-button {
+			margin-right: 15px;
+		}
+
+		.inner-option {
+			padding-left: 24px;
+		}
+
+		.inner-checkbox {
+			padding-left: 24px;
+		}
 	</style>
 </head>
 
@@ -33,6 +50,7 @@
 			<h1>electsys++</h1>
 			<p>上海交通大学选课网优化工具</p>
 		</div>
+
 		<h2>选课</h2>
 
 		<div class="container options">
@@ -92,35 +110,25 @@
 			</div>
 			<div class="form-group">
 				<div class="checkbox">
-					<input id="checkbox2-7" type="checkbox" data-key="recongnize_captcha" data-checked="true" data-unchecked="false" data-default="true">
-					<label for="checkbox2-7">自动识别验证码</label>
+					<input id="checkbox2-7" type="checkbox" data-key="recognize_captcha" data-checked="true" data-unchecked="false" data-default="false">
+					<label for="checkbox2-7">识别 jAccount 验证码</label>
 				</div>
-				<div class="form-group" style="padding-left:10%;">
-					<div class="checkbox">
-						<input id="checkbox2-8" type="checkbox" data-key="auto_login" data-checked="true" data-unchecked="false" data-default="false">
-						<label for="checkbox2-8">自动登录</label>
-					</div>
-					<div class="form-group">
-						<label for="usr">Jaccount:</label>
-						<input type="text" disabled="disabled" class="form-control" id="usr">
-					</div>
-					<div class="form-group">
-						<label for="pwd">Password:</label>
-						<input type="password" disabled="disabled" class="form-control" id="pwd">
-					</div>
-					<h3><span id="suc" class="label label-success">Success!</span></h3>
+			</div>
+			<div class="form-group inner-option">
+				<div class="checkbox">
+					<input id="checkbox2-8" type="checkbox" data-key="auto_login" data-checked="true" data-unchecked="false" data-default="false" data-enabled-key="recognize_captcha">
+					<label for="checkbox2-8">快速登录</label>
+				</div>
+				<div class="form-group form-inline inner-checkbox">
+					<input type="text" class="form-control option-input" id="input-jaccount-username" placeholder="jAccount 账号" data-key="jaccount_username" data-default="&quot;&quot;" data-enabled-key="auto_login"  disabled>
+					<input type="password" class="form-control option-input" id="input-jaccount-password" placeholder="jAccount 密码" data-key="jaccount_password" data-default="&quot;&quot;" data-enabled-key="auto_login" disabled>
+        			<button id="jaccount-btn" class="btn btn-primary option-button" data-save-keys="jaccount_username,jaccount_password" data-success-msg="#jaccount-success-msg" data-enabled-key="auto_login">保存</button>
+        			<span id="jaccount-success-msg" class="text-success fade">已保存</span>
 				</div>
 			</div>
 		</div>
         <br>
-		<div class="form-group">
-			<div class="form-group" style="width:50%; float: left">
-				<button id="submit-btn" class="btn btn-info">确认</button>
-			</div>
-			<div class="form-group" style="width:50%; float: right">
-				<button id="reset-btn" class="btn btn-info">恢复默认值</button>
-			</div>
-		</div>
+    		<button id="reset-btn" class="btn btn-info">恢复默认值</button>
 	</div>
 
 	<div class="footer">

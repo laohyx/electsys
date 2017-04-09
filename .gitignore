@@ -2,6 +2,8 @@
 
 Makefile.in
 
+*.zip
+
 # http://www.gnu.org/software/autoconf
 
 /autom4te.cache

@@ -2,6 +2,8 @@
  * Created by Jeff on 2017/3/24.
  */
 (function (window, document, $){
+    var option = window.option;
+
     function start(){
         console.log("Start Recognize");
         var caCanvas = document.createElement("canvas");
@@ -73,44 +75,29 @@
         console.log(str);
         button = document.getElementsByClassName("btn");
         //isAutoLog();
-        login = false;
-        chrome.storage.local.get('auto_login', function(result) {
-            login = result['auto_login'];
-            waitClick(login);
-        });
+        login = option.getBool('auto_login', false);
+        waitClick(login);
     }
     //function isAutoLog(){}
     function waitClick(login) {
         //var login=isAutoLog();
         console.log(login);
-        if (login==true&&(psw.value=="" ||psw.value=="undefined"||user.value=="undefined"|| typeof(psw.value)=="undefined" ||typeof(user.value)=="undefined" || user.value=="")) {
+        if (login==true&&(psw.value=="" ||psw.value===undefined||user.value===undefined|| typeof(psw.value)=="undefined" ||typeof(user.value)=="undefined" || user.value=="")) {
             console.log("auto login");
-            chrome.storage.local.get('usr', function(result) {
-                user.value=result['usr'];
-                if(user.value=="undefined")
-                    user.value='';
-            });
-            chrome.storage.local.get('pwd', function(result) {
-                psw.value=result['pwd'];
-                if(psw.value=="undefined")
-                    psw.value='';
-            });
-            setTimeout(function(){
-                login = false;
-                chrome.storage.local.get('auto_login', function(result) {
-                    login = result['auto_login'];
-                    waitClick(login);
-                });
-            }, 100);
+            user.value = option.get('jaccount_username', '');
+            psw.value = option.get('jaccount_password', '');
+
+            login = option.getBool('auto_login', false);
+            waitClick(login);
         }
         else if(login==true){
             console.log("clicking!!");
             button[0].click();
-            setTimeout("judge()",100);
+            setTimeout(() => judge(), 300);
         }
     }
     function judge() {
-        if($('title').innerText=="上海交通大学统一身份认证") {
+        if(inUrl('jaccount.sjtu.edu.cn/jaccount/jalogin')) {
             start();
         }
     }
@@ -139,8 +126,7 @@
     }
 
     /**返回每个字符的坐标和字符数 */
-    function cutWord(imgGray)
-    {
+    function cutWord(imgGray) {
         /**二值化 */
         for(var i=0;i<40;i++){
             for(var j=0;j<100;j++){
@@ -394,15 +380,17 @@
         return y1;
     }
 
-    window.onload = function() {
-        if ($("title")[0].innerText == "上海交通大学统一身份认证") {
+    $(document).ready(function () {
+        if (inUrl('jaccount.sjtu.edu.cn/jaccount/jalogin')) {
             //console.log("in convert");
-            chrome.storage.local.get('recongnize_captcha', function (result) {
-                rec = result['recongnize_captcha'];
-                if (rec || rec === undefined)
-                    start();
-            });
-            $('div.captcha-input>img').on("load",start);
+            option.init()
+                .then(function () {
+                    console.log(option.getBool('recognize_captcha', false));
+                    if (option.getBool('recognize_captcha', false)) {
+                        start();
+                    }
+                    $('div.captcha-input>img').on("load", start);
+                });
         }
-    };
+    });
 })(window, document, jQuery);
