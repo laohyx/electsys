@@ -1,9 +1,8 @@
 {
-    "id": 1,
-    "start_time": "2016-10-29 00:00:00",
-    "end_time": "2016-10-30 00:00:00",
-    "content": "<a href='http://tongqu.me' style='font-size:0.5em'>缤纷活动<br>尽在同去</a>",
-    "image": "http://tongqu.me/images/app_download.png",
-    "url": "http://tongqu.me",
-    "comment": "for test only"
+    "id": 2,
+    "start_time": "2017-04-10 00:00:00",
+    "end_time": "2017-04-17 00:00:00",
+    "content": "<a href='https://github.com/laohyx/electsys/issues/28' style='font-size:0.5em'>选课插件<br>贡献指南</a>",
+    "image": "https://raw.githubusercontent.com/laohyx/electsys/master/assets/contributing-qrcode.png",
+    "url": "https://github.com/laohyx/electsys/issues/28"
 }
