@@ -388,8 +388,8 @@
                     console.log(option.getBool('recognize_captcha', false));
                     if (option.getBool('recognize_captcha', false)) {
                         start();
+                        $('div.captcha-input>img').on("load", start);
                     }
-                    $('div.captcha-input>img').on("load", start);
                 });
         }
     });
