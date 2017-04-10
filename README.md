@@ -4,7 +4,7 @@
 Electsys++ SJTU electsys optimizer.
 上海交通大学本科教学信息服务网优化插件。
 
-本着交流学习、方便同学的目的将此插件建设为**开源项目**！欢迎各位同学参与贡献，提交[问题反馈](https://github.com/laohyx/electsys/issues)，或提交 [Pull Request](https://github.com/laohyx/electsys/pulls)。
+本着交流学习、方便同学的目的将此插件建设为**开源项目**！本项目遵循 GPL v3 协议，欢迎各位同学参与贡献！您可以提交[问题反馈](https://github.com/laohyx/electsys/issues)，也可以提交 [Pull Request](https://github.com/laohyx/electsys/pulls) 帮助完善代码。
 
 
 ### 安装
@@ -19,7 +19,7 @@ https://chrome.google.com/webstore/detail/electsys%20%20-%E4%BA%A4%E5%A4%A7%E9%8
 
 1. 在 [Release](https://github.com/laohyx/electsys/releases) 页面下载最新的 crx 文件
 2. 点击右上角 __菜单->更多工具->扩展程序__
-3. 将 crx 文件从资源管理器中__拖入“扩展程序”窗口__即可
+3. 将 crx 文件从资源管理器中 __拖入“扩展程序”窗口__ 即可
 4. 如安装失败，请确认 (1) 操作是否正确 (2) crx 文件是否来自 [Release](https://github.com/laohyx/electsys/releases) 页面或网上应用店
 
 ### 其他浏览器上的插件
@@ -34,10 +34,14 @@ https://github.com/hczhcz/electsys
 
 1. 在 [Release](https://github.com/laohyx/electsys/releases) 页面下载最新版本的 __Source Code__ 压缩包并在本地解压缩
 2. 在地址栏输入并访问 `about:flags`
-3. 勾选__“启用开发人员扩展功能(这可能让设备处于危险之中) ”__
-4. 点击右上角__菜单(...)->扩展->加载扩展__
+3. 勾选 __“启用开发人员扩展功能(这可能让设备处于危险之中) ”__
+4. 点击右上角 __菜单(...)->扩展->加载扩展__
 5. 选择解压后的文件夹即可载入
 
 ### 更新日志
 
 请参阅 [CHANGELOG](CHANGELOG) 文件。
+
+### 开源许可
+
+**GPL v3** 或更新的版本。详情请参阅 [LICENSE](LICENSE) 文件。
