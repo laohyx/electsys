@@ -1,5 +1,6 @@
 ## Electsys++
 
+[![Chrome Web Store](https://img.shields.io/chrome-web-store/d/ilmpacenmcgknoogkhpigakpoocpjmpl.svg)](https://chrome.google.com/webstore/detail/electsys%20%20-%E4%BA%A4%E5%A4%A7%E9%80%89%E8%AF%BE%E6%8F%92%E4%BB%B6/ilmpacenmcgknoogkhpigakpoocpjmpl)
 
 Electsys++ SJTU electsys optimizer.
 上海交通大学本科教学信息服务网优化插件。
