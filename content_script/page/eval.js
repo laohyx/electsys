@@ -33,11 +33,11 @@ function fast_eval_process () {
     jQuery("#sBoundControl_1_1").parent().css("width","120px");
     jQuery("#sBoundControl_1_1").parent().append('<input type="checkbox" id="fast_eval_interlock" checked="checked"/><lable for="fast_eval_interlock">分数联动</lable>');
 
-    
+
     document.intervalID = setInterval(function(){
         if(jQuery('.ui-label').text() == "100%"){
             clearInterval(document.intervalID);
-            jQuery("#sText_1_1_railElement").click(function(){
+            jQuery("#sText_1_1_railElement").onchange(function(){
                 jQuery("#sBoundControl_1_1").trigger("change");
             });
             jQuery("#sBoundControl_1_1").on('change',  function(){
@@ -45,7 +45,7 @@ function fast_eval_process () {
                 fast_eval_interlock(first_eval);
             });
         }
-        
+
         //显示全部表单
         jQuery("input").removeAttr("disabled");
         areaSelector = "#t1,#t2,#t3";
@@ -54,10 +54,10 @@ function fast_eval_process () {
         areas.children("tbody").children("tr").show();
         heads.show();
         areas.show();
-        jQuery(".ui-progress").animate({width: '100%'}, 
+        jQuery(".ui-progress").animate({width: '100%'},
         {duration: 500,easing: 'swing'});
         jQuery(".ui-progress").children().text("100%");
-    },300); 
+    },300);
 }
 
 function fast_eval_interlock(eval_num){
@@ -78,7 +78,7 @@ function fast_eval_interlock(eval_num){
     jQuery("#sText_2_8").val(eval2);
     jQuery("#sText_2_9").val(eval2);
     jQuery("#sText_2_10").val(eval2);
-    
+
     jQuery("#sBoundControl_1_2").val(eval1);
     jQuery("#sBoundControl_1_3").val(eval1);
     jQuery("#sBoundControl_2_1").val(eval2);
@@ -144,9 +144,9 @@ function fast_eval_midterm_process () {
     //增加分数联动功能
     jQuery("#sBoundControl_2_1").parent().css("width","120px");
     jQuery("#sBoundControl_2_1").parent().append('<input type="checkbox" id="fast_eval_interlock" checked="checked"/><lable for="fast_eval_interlock">分数联动</lable>');
-    
+
     console.log("midterm_process");
-    
+
     document.intervalID = setInterval(function(){
         console.log("not readey");
         if(jQuery("#sText_2_1_railElement").length == 1){
@@ -162,10 +162,10 @@ function fast_eval_midterm_process () {
             });
 
         }
-        
-    },300); 
 
-    
+    },300);
+
+
     }
 
 
@@ -184,7 +184,7 @@ function fast_eval_midterm_interlock(eval_num){
     jQuery("#sText_2_8").val(eval2);
     jQuery("#sText_2_9").val(eval2);
     jQuery("#sText_2_10").val(eval2);
-    
+
     jQuery("#sBoundControl_2_2").val(eval2);
     jQuery("#sBoundControl_2_3").val(eval2);
     jQuery("#sBoundControl_2_4").val(eval2);
@@ -210,5 +210,3 @@ function fast_eval_midterm_interlock(eval_num){
 
 
 }
-
-
