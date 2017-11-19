@@ -37,8 +37,12 @@ function fast_eval_process () {
     document.intervalID = setInterval(function(){
         if(jQuery('.ui-label').text() == "100%"){
             clearInterval(document.intervalID);
-            jQuery("#sText_1_1_railElement").onchange(function(){
-                jQuery("#sBoundControl_1_1").trigger("change");
+            jQuery("#sText_1_1_railElement").mouseup(function(){
+                document.intervalID = setInterval(()=>{
+                  clearInterval(document.intervalID);
+                  jQuery("#sBoundControl_1_1").trigger("change");
+                },10)
+                //jQuery("#sBoundControl_1_1").trigger("change");
             });
             jQuery("#sBoundControl_1_1").on('change',  function(){
                 var first_eval = jQuery(this).val();
