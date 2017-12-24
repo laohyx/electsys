@@ -1,4 +1,4 @@
-## Electsys++
+ ## Electsys++
 
 [![Chrome Web Store](https://img.shields.io/chrome-web-store/d/ilmpacenmcgknoogkhpigakpoocpjmpl.svg)](https://chrome.google.com/webstore/detail/electsys%20%20-%E4%BA%A4%E5%A4%A7%E9%80%89%E8%AF%BE%E6%8F%92%E4%BB%B6/ilmpacenmcgknoogkhpigakpoocpjmpl)
 
@@ -34,10 +34,14 @@ https://github.com/hczhcz/electsys
 #### Edge
 
 1. 在 [Release](https://github.com/laohyx/electsys/releases) 页面下载最新版本的 __Source Code__ 压缩包并在本地解压缩
-2. 在地址栏输入并访问 `about:flags`
-3. 勾选 __“启用开发人员扩展功能(这可能让设备处于危险之中) ”__
-4. 点击右上角 __菜单(...)->扩展->加载扩展__
-5. 选择解压后的文件夹即可载入
+2. 在 https://www.microsoft.com/en-us/store/p/microsoft-edge-extension-toolkit/9nblggh4txvb 安装 __Microsoft Edge Extension Toolkit__
+3. 打开 Toolkit ,点击 __Load extension to convert__ ,选择刚才解压的文件夹载入，等待载入完成(完成后页面中间会有提示 __Your extension is ready for testing__)
+4. 打开 Edge ,在地址栏输入并访问 `about:flags`
+5. 勾选 __“启用开发人员扩展功能(这可能让设备处于危险之中) ”__
+6. 点击右上角 __菜单(...)->扩展->加载扩展__
+7. 选择插件所在的文件夹即可载入
+
+(由于插件没有上线到应用商店，浏览器启动时会提示已关闭来自未知源的扩展;可以从 __菜单(...)->扩展__ 进行启用)
 
 ### 更新日志
 
