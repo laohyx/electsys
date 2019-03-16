@@ -9,74 +9,80 @@
         var caCanvas = document.createElement("canvas");
         document.body.appendChild(caCanvas);
 
-        var captcha = document.getElementsByTagName('img')[1];
-        caCanvas.width = captcha.naturalWidth;
-        caCanvas.height= captcha.naturalHeight;
+        var captcha = document.getElementById('captcha-img');
 
-        var ctx = caCanvas.getContext('2d');
-        caCanvas.style.display='none';
-        ctx.drawImage(captcha, 0, 0);
+        captcha.onload = function() {
+            caCanvas.width = captcha.naturalWidth;
+            caCanvas.height= captcha.naturalHeight;
 
-        var imgData = ctx.getImageData(0,0,caCanvas.width,caCanvas.height).data;
-        var imgGrey = convertToGray(imgData);
-
-        var result = cutWord(imgGrey);
-
-        var recordX = result[0];
-        var recordY = result[1];
-        var number = result[2];
-        /*----------------------------------------*/
-        ctx.strokeStyle = 'red';
-        ctx.beginPath();
-        for(i=0;i<number;i++) {
-            ctx.moveTo(recordX[i*2],recordY[i][0]);
-            ctx.lineTo(recordX[i*2],recordY[i][1]);
-            ctx.moveTo(recordX[i*2+1],recordY[i][0]);
-            ctx.lineTo(recordX[i*2+1],recordY[i][1]);
-            ctx.stroke();
-        }
-        for(i=0;i<number;i++) {
-            ctx.moveTo(recordX[i*2],recordY[i][0]);
-            ctx.lineTo(recordX[i*2+1],recordY[i][0]);
-            ctx.stroke();
-            ctx.moveTo(recordX[i*2],recordY[i][1]);
-            ctx.lineTo(recordX[i*2+1],recordY[i][1]);
-            ctx.stroke();
-        }
-
-        ctx.closePath();
-
-        var imgSet = seperateWord(imgGrey,recordX,recordY,number);
-        var max=0;
-        var index=0;
-        var input=new Array(1);
-        var outputArr;
-        var output;
-        var capForm = document.getElementById('captcha');
-        psw = document.getElementById('pass');
-        user = document.getElementById('user');
-        var str = '';
-        var str2 = "";
-        for(var i=0;i<number;i++) {
-            input[0] = reshape(imgSet[i]);
-            outputArr = recognize(input);
-            output=outputArr[0];
-            max=0;
-            for(var j=0;j<26;j++) {
-                if(output[j]>max) {
-                    max=output[j];
-                    index=j;
-                }
+            var ctx = caCanvas.getContext('2d');
+            caCanvas.style.display='none';
+            ctx.drawImage(captcha, 0, 0);
+    
+            var imgData = ctx.getImageData(0,0,caCanvas.width,caCanvas.height).data;
+            var imgGrey = convertToGray(imgData);
+    
+            var result = cutWord(imgGrey);
+    
+            var recordX = result[0];
+            var recordY = result[1];
+            var number = result[2];
+            /*----------------------------------------*/
+            ctx.strokeStyle = 'red';
+            ctx.beginPath();
+            for(i=0;i<number;i++) {
+                ctx.moveTo(recordX[i*2],recordY[i][0]);
+                ctx.lineTo(recordX[i*2],recordY[i][1]);
+                ctx.moveTo(recordX[i*2+1],recordY[i][0]);
+                ctx.lineTo(recordX[i*2+1],recordY[i][1]);
+                ctx.stroke();
             }
-            str2 = String.fromCharCode(index+97);
-            str = str.concat(str2);
+            for(i=0;i<number;i++) {
+                ctx.moveTo(recordX[i*2],recordY[i][0]);
+                ctx.lineTo(recordX[i*2+1],recordY[i][0]);
+                ctx.stroke();
+                ctx.moveTo(recordX[i*2],recordY[i][1]);
+                ctx.lineTo(recordX[i*2+1],recordY[i][1]);
+                ctx.stroke();
+            }
+    
+            ctx.closePath();
+    
+            var imgSet = seperateWord(imgGrey,recordX,recordY,number);
+            var max=0;
+            var index=0;
+            var input=new Array(1);
+            var outputArr;
+            var output;
+            var capForm = document.getElementById('captcha');
+            psw = document.getElementById('pass');
+            user = document.getElementById('user');
+            var str = '';
+            var str2 = "";
+            for(var i=0;i<number;i++) {
+                input[0] = reshape(imgSet[i]);
+                outputArr = recognize(input);
+                output=outputArr[0];
+                max=0;
+                for(var j=0;j<26;j++) {
+                    if(output[j]>max) {
+                        max=output[j];
+                        index=j;
+                    }
+                }
+                str2 = String.fromCharCode(index+97);
+                str = str.concat(str2);
+            }
+            capForm.value=str;
+            console.log(str);
+            button = document.getElementsByClassName("btn");
+            //isAutoLog();
+            login = option.getBool('auto_login', false);
+            waitClick(login);
+    
         }
-        capForm.value=str;
-        console.log(str);
-        button = document.getElementsByClassName("btn");
-        //isAutoLog();
-        login = option.getBool('auto_login', false);
-        waitClick(login);
+
+
     }
     //function isAutoLog(){}
     function waitClick(login) {
