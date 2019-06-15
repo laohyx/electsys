@@ -1,57 +1,60 @@
 /**
  * Created by Jeff on 2017/3/24.
  */
-(function (window, document, $){
+(function (window, document, $) {
     var option = window.option;
+    var isStarted = false;
 
-    function start(){
+    function start() {
+        if (isStarted) return;
+        isStarted = true;
+
         console.log("Start Recognize");
         var caCanvas = document.createElement("canvas");
         document.body.appendChild(caCanvas);
 
         var captcha = document.getElementById('captcha-img');
-
-        captcha.onload = function() {
+        var initCaptcha = function () {
             caCanvas.width = captcha.naturalWidth;
-            caCanvas.height= captcha.naturalHeight;
+            caCanvas.height = captcha.naturalHeight;
 
             var ctx = caCanvas.getContext('2d');
-            caCanvas.style.display='none';
+            caCanvas.style.display = 'none';
             ctx.drawImage(captcha, 0, 0);
-    
-            var imgData = ctx.getImageData(0,0,caCanvas.width,caCanvas.height).data;
+
+            var imgData = ctx.getImageData(0, 0, caCanvas.width, caCanvas.height).data;
             var imgGrey = convertToGray(imgData);
-    
+
             var result = cutWord(imgGrey);
-    
+
             var recordX = result[0];
             var recordY = result[1];
             var number = result[2];
             /*----------------------------------------*/
             ctx.strokeStyle = 'red';
             ctx.beginPath();
-            for(i=0;i<number;i++) {
-                ctx.moveTo(recordX[i*2],recordY[i][0]);
-                ctx.lineTo(recordX[i*2],recordY[i][1]);
-                ctx.moveTo(recordX[i*2+1],recordY[i][0]);
-                ctx.lineTo(recordX[i*2+1],recordY[i][1]);
+            for (i = 0; i < number; i++) {
+                ctx.moveTo(recordX[i * 2], recordY[i][0]);
+                ctx.lineTo(recordX[i * 2], recordY[i][1]);
+                ctx.moveTo(recordX[i * 2 + 1], recordY[i][0]);
+                ctx.lineTo(recordX[i * 2 + 1], recordY[i][1]);
                 ctx.stroke();
             }
-            for(i=0;i<number;i++) {
-                ctx.moveTo(recordX[i*2],recordY[i][0]);
-                ctx.lineTo(recordX[i*2+1],recordY[i][0]);
+            for (i = 0; i < number; i++) {
+                ctx.moveTo(recordX[i * 2], recordY[i][0]);
+                ctx.lineTo(recordX[i * 2 + 1], recordY[i][0]);
                 ctx.stroke();
-                ctx.moveTo(recordX[i*2],recordY[i][1]);
-                ctx.lineTo(recordX[i*2+1],recordY[i][1]);
+                ctx.moveTo(recordX[i * 2], recordY[i][1]);
+                ctx.lineTo(recordX[i * 2 + 1], recordY[i][1]);
                 ctx.stroke();
             }
-    
+
             ctx.closePath();
-    
-            var imgSet = seperateWord(imgGrey,recordX,recordY,number);
-            var max=0;
-            var index=0;
-            var input=new Array(1);
+
+            var imgSet = seperateWord(imgGrey, recordX, recordY, number);
+            var max = 0;
+            var index = 0;
+            var input = new Array(1);
             var outputArr;
             var output;
             var capForm = document.getElementById('captcha');
@@ -59,70 +62,75 @@
             user = document.getElementById('user');
             var str = '';
             var str2 = "";
-            for(var i=0;i<number;i++) {
+            for (var i = 0; i < number; i++) {
                 input[0] = reshape(imgSet[i]);
                 outputArr = recognize(input);
-                output=outputArr[0];
-                max=0;
-                for(var j=0;j<26;j++) {
-                    if(output[j]>max) {
-                        max=output[j];
-                        index=j;
+                output = outputArr[0];
+                max = 0;
+                for (var j = 0; j < 26; j++) {
+                    if (output[j] > max) {
+                        max = output[j];
+                        index = j;
                     }
                 }
-                str2 = String.fromCharCode(index+97);
+                str2 = String.fromCharCode(index + 97);
                 str = str.concat(str2);
             }
-            capForm.value=str;
+            capForm.value = str;
             console.log(str);
             button = document.getElementsByClassName("btn");
             //isAutoLog();
             login = option.getBool('auto_login', false);
             waitClick(login);
-    
+
         }
 
+        // If the captcha is already loaded
+        if (captcha.complete) {
+            initCaptcha();
+        }
 
+        // Add delay to avoid duplicate initialization
+        setTimeout(function () {
+            captcha.addEventListener('load', initCaptcha);
+        }, 100);
     }
     //function isAutoLog(){}
     function waitClick(login) {
         //var login=isAutoLog();
-        console.log(login);
-        if (login==true&&(psw.value=="" ||psw.value===undefined||user.value===undefined|| typeof(psw.value)=="undefined" ||typeof(user.value)=="undefined" || user.value=="")) {
+        //console.log(login);
+        if (login == true && (psw.value == "" || psw.value === undefined || user.value === undefined || typeof (psw.value) == "undefined" || typeof (user.value) == "undefined" || user.value == "")) {
             console.log("auto login");
             user.value = option.get('jaccount_username', '');
             psw.value = option.get('jaccount_password', '');
 
             login = option.getBool('auto_login', false);
             waitClick(login);
-        }
-        else if(login==true){
+        } else if (login == true) {
             console.log("clicking!!");
             button[0].click();
             setTimeout(() => judge(), 300);
         }
     }
+
     function judge() {
-        if(inUrl('jaccount.sjtu.edu.cn/jaccount/jalogin')) {
+        if (inUrl('jaccount.sjtu.edu.cn/jaccount/jalogin')) {
             start();
         }
     }
 
     function convertToGray(imgData) {
         var imgGray = new Array(40);
-        for (var i =0;i<40;i++)
-        {
+        for (var i = 0; i < 40; i++) {
             imgGray[i] = new Array(100);
-            for(var j=0;j<100;j++)
-                imgGray[i][j]=0;
+            for (var j = 0; j < 100; j++)
+                imgGray[i][j] = 0;
         }
         //convert to grey
-        for(var i=0;i<40;i++)
-        {
-            for(var j=0;j<100;j++)
-            {
+        for (var i = 0; i < 40; i++) {
+            for (var j = 0; j < 100; j++) {
                 //imgGray[i][j]=Math.round((0.2989*imgData[(i*100+j)*4]+0.5870*imgData[(i*100+j)*4+1]+0.1140*imgData[(i*100+j)*4+2]));
-                imgGray[i][j]=((0.2989*imgData[(i*100+j)*4]+0.5870*imgData[(i*100+j)*4+1]+0.1140*imgData[(i*100+j)*4+2]));
+                imgGray[i][j] = ((0.2989 * imgData[(i * 100 + j) * 4] + 0.5870 * imgData[(i * 100 + j) * 4 + 1] + 0.1140 * imgData[(i * 100 + j) * 4 + 2]));
                 //console.log(imgGray[i][j]);
             }
         }
@@ -134,9 +142,9 @@
     /**返回每个字符的坐标和字符数 */
     function cutWord(imgGray) {
         /**二值化 */
-        for(var i=0;i<40;i++){
-            for(var j=0;j<100;j++){
-                if(imgGray[i][j]>(255*0.71))
+        for (var i = 0; i < 40; i++) {
+            for (var j = 0; j < 100; j++) {
+                if (imgGray[i][j] > (255 * 0.71))
                     imgGray[i][j] = 0;
                 else
                     imgGray[i][j] = 1;
@@ -151,106 +159,103 @@
         var flag;
         /*初始化数组*/
         //----------------------------------------------------------//
-        for(i=0;i<100;i++){
-            x[i]=0;
+        for (i = 0; i < 100; i++) {
+            x[i] = 0;
         }
-        for(i=0;i<5;i++){
+        for (i = 0; i < 5; i++) {
             y[i] = new Array(40);
-            for(j=0;j<40;j++){
-                y[i][j]=0;
+            for (j = 0; j < 40; j++) {
+                y[i][j] = 0;
             }
         }
-        for(i=0;i<5;i++){
+        for (i = 0; i < 5; i++) {
             recordY[i] = new Array(2);
-            recordY[i][0]=0;
-            recordY[i][1]=0;
+            recordY[i][0] = 0;
+            recordY[i][1] = 0;
         }
-        for(i=0;i<10;i++){
-            recordX[i]=0;
+        for (i = 0; i < 10; i++) {
+            recordX[i] = 0;
         }
         /*初始化完毕*/
         //----------------------------------------------------------//
 
         /**横向分离字符，获取字符数和横坐标 */
-        for( i=0;i<40;i++){
-            for( j=0;j<100;j++){
-                x[j]=x[j]+imgGray[i][j];
+        for (i = 0; i < 40; i++) {
+            for (j = 0; j < 100; j++) {
+                x[j] = x[j] + imgGray[i][j];
             }
         }
-        flag=0;
-        for(i=0;i<100;i++){
-            if(flag==0 && x[i]>0){
-                flag=1;
-                recordX[number*2]=i;
-            }
-            else if((flag==1 && x[i]==0)||(flag==1 && i==99)){
-                flag=0;
-                recordX[number*2+1]=i;
-                number=number+1;
+        flag = 0;
+        for (i = 0; i < 100; i++) {
+            if (flag == 0 && x[i] > 0) {
+                flag = 1;
+                recordX[number * 2] = i;
+            } else if ((flag == 1 && x[i] == 0) || (flag == 1 && i == 99)) {
+                flag = 0;
+                recordX[number * 2 + 1] = i;
+                number = number + 1;
             }
         }
         /** 纵向分离字符*/
-        for(var index=0;index<number;index++){
-            flag=0;
-            for(i=recordX[index*2];i<=recordX[index*2+1];i++){
-                for(j=0;j<40;j++){
-                    y[index][j]=y[index][j]+imgGray[j][i];
+        for (var index = 0; index < number; index++) {
+            flag = 0;
+            for (i = recordX[index * 2]; i <= recordX[index * 2 + 1]; i++) {
+                for (j = 0; j < 40; j++) {
+                    y[index][j] = y[index][j] + imgGray[j][i];
                 }
             }
         }
         /** 获取字符纵向坐标*/
-        for(index=0;index<number;index++){
-            flag=0;
-            for(i=0;i<40;i++){
-                if(flag==0&&y[index][i]>0){
-                    flag=1;
-                    recordY[index][0]=i-1;
+        for (index = 0; index < number; index++) {
+            flag = 0;
+            for (i = 0; i < 40; i++) {
+                if (flag == 0 && y[index][i] > 0) {
+                    flag = 1;
+                    recordY[index][0] = i - 1;
                 }
             }
-            flag=0;
-            for(i=39;i>=0;i--){
-                if(flag==0&&y[index][i]>0){
-                    flag=1;
-                    recordY[index][1]=i+1;
+            flag = 0;
+            for (i = 39; i >= 0; i--) {
+                if (flag == 0 && y[index][i] > 0) {
+                    flag = 1;
+                    recordY[index][1] = i + 1;
                 }
             }
         }
-        var result=[recordX,recordY,number];
+        var result = [recordX, recordY, number];
         return result;
     }
 
     /** 返回所有单字的集合 */
-    function seperateWord(imgGrey,recordX,recordY,number) {
+    function seperateWord(imgGrey, recordX, recordY, number) {
         var imgSet = new Array(5);
-        for(var i=0;i<number;i++)
-        {
-            imgSet[i]=imcrop(imgGrey,recordX[i*2],recordY[i][0],recordX[i*2+1]-recordX[i*2],recordY[i][1]-recordY[i][0]);
+        for (var i = 0; i < number; i++) {
+            imgSet[i] = imcrop(imgGrey, recordX[i * 2], recordY[i][0], recordX[i * 2 + 1] - recordX[i * 2], recordY[i][1] - recordY[i][0]);
         }
         return imgSet;
     }
 
     /** 输入图像矩阵、起始坐标及图像横宽，返回裁剪后并适配到25*20大小的图片*/
-    function imcrop(imgGrey,x0,y0,dx,dy){
+    function imcrop(imgGrey, x0, y0, dx, dy) {
         var img = new Array(25);
-        for(var i=0;i<25;i++){
-            img[i]=new Array(20);
+        for (var i = 0; i < 25; i++) {
+            img[i] = new Array(20);
         }
-        for(i=0;i<25;i++){
-            for(var j=0;j<20;j++){
-                img[i][j]=0;
+        for (i = 0; i < 25; i++) {
+            for (var j = 0; j < 20; j++) {
+                img[i][j] = 0;
             }
         }
-        var x=0;
-        var y=0;
-        for(i=y0;i<=y0+dy&&x<20;i++){
-            x=0;
-            for(j=x0;j<=x0+dx&&y<25;j++){
+        var x = 0;
+        var y = 0;
+        for (i = y0; i <= y0 + dy && x < 20; i++) {
+            x = 0;
+            for (j = x0; j <= x0 + dx && y < 25; j++) {
                 //console.log(x,y,i,j);
-                if(imgGrey[i][j]>0){
-                    img[y][x]=1;
-                }
-                else{
-                    img[y][x]=0;
+                if (imgGrey[i][j] > 0) {
+                    img[y][x] = 1;
+                } else {
+                    img[y][x] = 0;
                 }
                 x++;
             }
@@ -261,14 +266,12 @@
 
     /**将图像重排
      * 返回一维数组*/
-    function reshape(img){
+    function reshape(img) {
         var input = new Array(500);
         var cnt = 0;
-        for(var i=0;i<25;i++)
-        {
-            for(var j=0;j<20;j++)
-            {
-                input[cnt]=img[i][j];
+        for (var i = 0; i < 25; i++) {
+            for (var j = 0; j < 20; j++) {
+                input[cnt] = img[i][j];
                 cnt++;
             }
         }
@@ -276,49 +279,49 @@
     }
 
     /** 神经网络矩阵，返回字母概率*/
-    function recognize(x1){
+    function recognize(x1) {
         //===== MODULE FUNCTIONS ========
         //Map Minimum and Maximum Input Processing Function
-        function mapminmax_apply(x,settings){
+        function mapminmax_apply(x, settings) {
             y = [];
-            for(var i=0;i<x.length;i++){
+            for (var i = 0; i < x.length; i++) {
                 y.push([])
-                for(var j=0;j<settings.xoffset.length;j++){
-                    y[i].push((x[i][j]-settings.xoffset[j])*settings.gain[j]+settings.ymin);
+                for (var j = 0; j < settings.xoffset.length; j++) {
+                    y[i].push((x[i][j] - settings.xoffset[j]) * settings.gain[j] + settings.ymin);
                 }
             }
             return y;
         }
 
         //Remove Constants Input Processing Function
-        function removeconstantrows_apply(x,settings){
+        function removeconstantrows_apply(x, settings) {
             y = [];
-            for(var i=0;i<x.length;i++){
+            for (var i = 0; i < x.length; i++) {
                 y.push([]);
-                for(var j=0;j<settings.keep.length;j++){
-                    y[i].push(x[i][settings.keep[j]-1]);
+                for (var j = 0; j < settings.keep.length; j++) {
+                    y[i].push(x[i][settings.keep[j] - 1]);
                 }
             }
             return y;
         }
 
         //Sigmoid Symmetric Transfer Function
-        function tansig_apply(n){
-            for(var i=0;i<n.length;i++){
-                for(var j=0;j<n[0].length;j++){
-                    n[i][j] = 2.0/(1+Math.exp(-2*n[i][j]))-1;
+        function tansig_apply(n) {
+            for (var i = 0; i < n.length; i++) {
+                for (var j = 0; j < n[0].length; j++) {
+                    n[i][j] = 2.0 / (1 + Math.exp(-2 * n[i][j])) - 1;
                 }
             }
             return n;
         }
 
         //Map Minimum and Maximum Output Reverse-Processing Function
-        function mapminmax_reverse(y,settings){
+        function mapminmax_reverse(y, settings) {
             x = [];
-            for(var i=0;i<y.length;i++){
+            for (var i = 0; i < y.length; i++) {
                 x.push([]);
-                for(var j=0;j<settings.xoffset.length;j++){
-                    x[i].push((y[i][j]-settings.ymin)/settings.gain[j]+settings.xoffset[j]);
+                for (var j = 0; j < settings.xoffset.length; j++) {
+                    x[i].push((y[i][j] - settings.ymin) / settings.gain[j] + settings.xoffset[j]);
                 }
             }
             return x;
@@ -351,38 +354,38 @@
         //Q = x1.length; //samples
 
         //Input 1
-        xp1 = removeconstantrows_apply(x1,x1_step1);
-        xp1 = mapminmax_apply(xp1,x1_step2);
+        xp1 = removeconstantrows_apply(x1, x1_step1);
+        xp1 = mapminmax_apply(xp1, x1_step2);
 
         //Layer 1;
         y = [];
-        for(var i=0;i<xp1.length;i++){
+        for (var i = 0; i < xp1.length; i++) {
             y.push([]);
-            for(var j=0;j<IW1_1.length;j++){
+            for (var j = 0; j < IW1_1.length; j++) {
                 s = 0;
-                for(var m=0;m<IW1_1[0].length;m++){
+                for (var m = 0; m < IW1_1[0].length; m++) {
                     s = s + xp1[i][m] * IW1_1[j][m];
                 }
-                y[i].push(s+b1[j]);
+                y[i].push(s + b1[j]);
             }
         }
         a1 = tansig_apply(y);
 
         //Layer 2
         a2 = [];
-        for(var i=0;i<a1.length;i++){
+        for (var i = 0; i < a1.length; i++) {
             a2.push([]);
-            for(var j=0;j<LW2_1.length;j++){
+            for (var j = 0; j < LW2_1.length; j++) {
                 s = 0;
-                for(var m=0;m<LW2_1[0].length;m++){
+                for (var m = 0; m < LW2_1[0].length; m++) {
                     s = s + a1[i][m] * LW2_1[j][m];
                 }
-                a2[i].push(s+b2[j]);
+                a2[i].push(s + b2[j]);
             }
         }
 
         //Output 1
-        y1 = mapminmax_reverse(a2,y1_step1);
+        y1 = mapminmax_reverse(a2, y1_step1);
         return y1;
     }
 
@@ -391,10 +394,10 @@
             //console.log("in convert");
             option.init()
                 .then(function () {
-                    console.log(option.getBool('recognize_captcha', false));
+                    //console.log(option.getBool('recognize_captcha', false));
                     if (option.getBool('recognize_captcha', false)) {
                         start();
-                        $('div.captcha-input>img').on("load", start);
+                        $('div.captcha-input>img').on('load', start);
                     }
                 });
         }
